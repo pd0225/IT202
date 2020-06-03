@@ -6,7 +6,7 @@
 	<input type="password" id="p" name="password"/>
 	</label>
 	<label for="cp">Confirm Password
-	<input type="password" id="cp" name="cpassword/>
+	<input type="password" id="cp" name="cpassword"/>
 	</label>
 	<input type="submit" name="register" value="Register"/>
 </form>
