@@ -12,7 +12,7 @@
 //echo var_export($_GET, true);
 //echo var_export($_POST, true);
 //echo var_export($_REQUEST, true);
-if(isset($_POST["register"])) {
+if(isset($_POST["login"])){
 	if(isset($_POST["password"]) && isset($_POST["email"])) {
 		$password = $_POST["password"];
 		$email = $_POST["email"];
