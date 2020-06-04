@@ -44,7 +44,7 @@ if(isset($_POST["register"]))
 					//echo "<div>Successfully registered!</div>";
 				}
 			}
-			catch (Exception $e){
+			catch (Exception $e) {
 				echo $e->getMessage();
 			}
 		
