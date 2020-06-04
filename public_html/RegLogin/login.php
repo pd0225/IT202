@@ -37,10 +37,11 @@ if(isset($_POST["register"])) {
 							echo "<div>Passwords matched! You are technically logged in!</div>";
 						}
 						else{
-							echo "<div>Invalid password!</div>";							}
+							echo "<div>Invalid password!</div>";										}
 					}
 					else{
 						echo "<div>Invalid user</div>";
+					}
 					//echo "<div>Successfully registered!</div>";
 				}
 			}
