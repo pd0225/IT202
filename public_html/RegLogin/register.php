@@ -32,7 +32,7 @@ if(isset($_POST["register"]))
 					":password" => $password
 				));
 				$e = $stmt->errorInfo();
-				if($e[0] != "00000")[
+				if($e[0] != "00000"){
 					echo var_export($e, true);
 				}
 				else{
