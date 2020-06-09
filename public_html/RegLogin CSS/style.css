@@ -1,0 +1,13 @@
+input {
+    background-color: cornflowerblue;
+}
+label {
+    border: 1px solid black;
+}
+form {
+    width:90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    text-align: center;
+}
