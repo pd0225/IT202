@@ -1,3 +1,18 @@
+nav {
+    clear: left;
+    margin: 0px;
+    padding: 0;
+    border-bottom: 3px solid royalblue;
+    display: block;
+    text-align: center;
+    background-color: aliceblue;
+}
+nav ul {
+    margin-left: 0;
+    margin-bottom: .5em;
+    list-style: none;
+    padding: .5em 2em 0 0;
+}
 input {
     background-color: lightblue;
 }
@@ -11,21 +26,7 @@ form {
     margin-top: 10px;
     text-align: left;
 }
-#nav {
-    clear: left;
-    margin: 0px;
-    padding: 0;
-    border-bottom: 3px solid royalblue;
-    display: block;
-    text-align: center;
-    background-color: aliceblue;
-}
-#nav ul {
-    margin-left: 0;
-    margin-bottom: .5em;
-    list-style: none;
-    padding: .5em 2em 0 0;
-}
+
 h4 {
     font-family: cursive;
 }
