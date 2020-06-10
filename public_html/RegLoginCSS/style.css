@@ -1,13 +1,13 @@
 input {
-    background-color: cornflowerblue;
+    background-color: lightblue;
 }
 label {
-    border: 3px solid black;
+    border: 1px solid skyblue;
 }
 form {
     width:90%;
     margin-left: 0;
     margin-right: auto;
-    margin-top: 5px;
+    margin-top: 10px;
     text-align: left;
 }
