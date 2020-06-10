@@ -1,5 +1,9 @@
 <?php
 include("header.php");
+?>
+<h4>Logout</h4>
+
+<?php
 //session_start();
 session_unset();
 session_destroy();
