@@ -2,5 +2,5 @@
 include("header.php");
 ?>
 <h3>Home</h3>
-<?php echo "Welcome, " . $_SESSION["user"]["email"]
+<?php echo "Welcome to Preksha's bank, " . $_SESSION["user"]["email"]
 ?>

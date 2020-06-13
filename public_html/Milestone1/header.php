@@ -1,9 +1,10 @@
 <head>
-    <title>Preksha's Website</title>
+    <title>Preksha's Simple Bank</title>
     <h1>Simple Bank</h1>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <?php
+header('Location: https://it202summer.herokuapp.com/public_html/Milestone1/login.php');
 require("config.php");
 session_start();
 ?>
