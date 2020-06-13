@@ -1,7 +1,7 @@
 <?php
 include("header.php");
 ?>
-<h4>Logout</h4>
+<h3>Logout</h3>
 
 <?php
 //session_start();

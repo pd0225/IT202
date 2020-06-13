@@ -1,7 +1,7 @@
 <head>
-    <title>Preksha's Bank</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+    <title>Preksha's Website</title>
     <h1>Simple Bank</h1>
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <?php
 require("config.php");

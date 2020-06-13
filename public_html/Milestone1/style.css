@@ -5,9 +5,7 @@ nav {
     border-bottom: 3px solid royalblue;
     display: block;
     text-align: center;
-    background-color: bisque;
-    color: black;
-    font-family: "Devanagari Sangam MN";
+    background-color: aliceblue;
 }
 nav ul {
     margin-left: 0;
@@ -15,14 +13,11 @@ nav ul {
     list-style: none;
     padding: .5em 2em 0 0;
 }
-nav li {
-    display: inline;
-}
 input {
-    background-color: burlywood;
+    background-color: lightblue;
 }
 label {
-    border: 1px solid chocolate;
+    border: 1px solid skyblue;
 }
 form {
     width:90%;
