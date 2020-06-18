@@ -12,7 +12,7 @@ function get($arr, $key){
 }
 if(isset($_GET["AccountNum"])){
     $AccountNum = $_GET["AccountNum"];
-    $stmt = $db->prepare("SELECT * FROM Bank_Account where Account_Num = :AccountNum");
+    $stmt = $db->prepare("SELECT * FROM Account where Account_Num = :AccountNum");
     $stmt->execute([":AccountNum"=>$AccNum]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     if(!$result){
@@ -56,18 +56,18 @@ if(isset($_POST["updated"]) || isset($_POST["created"]) || isset($_POST["delete"
         try{
             if($AccountNum > 0) {
                 if($delete){
-                    $stmt = $db->prepare("DELETE from Bank_Account where Account_Number=$AccountNum");
+                    $stmt = $db->prepare("DELETE from Account where Account_Number=$AccountNum");
                     $result = $stmt->execute(array(
                         ":id" => $AccNum
                     ));
                 }
                 else {
-                    $stmt = $db->prepare("UPDATE Bank_Account set Name='$name', Account_Type='$Acctyp', Account_Balance=$AccountBalance where Account_Number=$AccountNum");
+                    $stmt = $db->prepare("UPDATE Account set Name='$name', Account_Type='$Acctyp', Account_Balance=$AccountBalance where Account_Number=$AccountNum");
                     $result = $stmt->execute();
                 }
             }
             else{
-                $stmt = $db->prepare("INSERT INTO Bank_Account (Name, Account_Number, Account_Type,Account_Balance) VALUES (:name, :AccountNum, :Acctyp,:AccountBalance)");
+                $stmt = $db->prepare("INSERT INTO Account (Name, Account_Number, Account_Type,Account_Balance) VALUES (:name, :AccountNum, :Acctyp,:AccountBalance)");
                 $result = $stmt->execute(array(
                     ":name" => $name,
                     ":AccountNum" => $AccountNum,
