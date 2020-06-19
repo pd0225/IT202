@@ -1,8 +1,10 @@
-CREATE TABLE Things (
-    id int auto_increment,
-    name varchar(20) unique,
-    quantity int default 0,
-    created datetime default current_timestamp,
-    modified datetime default current_timestamp onupdate current_timestamp,
-    primary key (id)
-)
+CREATE TABLE Account (
+	id int auto_increment,
+	AccountNum varchar(12) NOT NULL,
+	UserID int,
+	OpenedDate DATETIME default CURRENT_TIMESTAMP
+	AccountBalance decimal(12,2) default 0.00,
+	AccountType varchar(20),
+	PRIMARY KEY (CustomerID),
+	FOREIGN KEY (UserID) REFERENCES Users.id
+);

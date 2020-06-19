@@ -54,4 +54,7 @@ if(isset($_POST["Bank"])){
         echo "<div>Name, Account Number, Account Type and Account Balance must not be empty.<div>";
     }
 }
+$stmt = $db->prepare("SELECT * FROM Bank_Account");
+$stmt->execute();
+?>
 ?>

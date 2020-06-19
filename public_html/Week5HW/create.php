@@ -5,30 +5,30 @@
     <label for="AccountNum">Account Number
         <input type="number" id="AccountNum" name="Account_Number" />
     </label>
-    <label for="acctype">Account Type
+    <label for="AccountType">Account Type
         <input type="text" id="AccountType" name="Account_Type" />
     </label>
     <label for="AccountBalance">Balance
         <input type="number" id="AccountBalance" name="Account_Balance" />
     </label>
-    <input type="submit" name="Bank" value="Create Account"/>
+    <input type="submit" name="Account" value="Create Account"/>
 </form>
 <?php
 require("common.inc.php");
 $db = getDB();
 
 
-if(isset($_POST["Bank"])){
+if(isset($_POST["Account"])){
     $name = $_POST["Name"];
     $AccountNum = $_POST["Account_Number"];
     $AccountType = $_POST["Account_Type"];
     $AccountBalance = $_POST["Account_Balance"];
-    if(!empty($name) && !empty($Accnum)&& !empty($Acctyp)&& !empty($balance)){
+    if(!empty($name) && !empty($AccountNum)&& !empty($AccountType)&& !empty($AccountBalance)){
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Bank_Account (Name, Account_Number, Account_Type,Account_Balance) VALUES (:name, :AccountNum, :AccountType,:AccountBalance)");
+            $stmt = $db->prepare("INSERT INTO Account (Name, Account_Number, Account_Type,Account_Balance) VALUES (:name, :AccountNum, :AccountType,:AccountBalance)");
             $result = $stmt->execute(array(
                 ":name" => $name,
                 ":AccountNum" => $AccountNum,
@@ -57,6 +57,6 @@ if(isset($_POST["Bank"])){
         echo "<div>Name, Account Number, Account Type and Account Balance must not be empty.<div>";
     }
 }
-$stmt = $db->prepare("SELECT * FROM Bank_Account");
+$stmt = $db->prepare("SELECT * FROM Account");
 $stmt->execute();
 ?>
