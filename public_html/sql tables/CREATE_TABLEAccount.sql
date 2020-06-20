@@ -1,7 +1,7 @@
 CREATE TABLE Account (
 	id int auto_increment,
 	AccountNum varchar(12) NOT NULL,
-	UserID int,
+	user_id int,
 	OpenedDate DATETIME default CURRENT_TIMESTAMP
 	AccountBalance decimal(12,2) default 0.00,
 	AccountType varchar(20),
