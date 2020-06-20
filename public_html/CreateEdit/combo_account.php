@@ -38,9 +38,9 @@ else{
             <input type="number" id="AccountBalance" name="Account_Balance" value="<?php echo get($result, "Account_Balance");?>" />
         </label>
         <?php if($AccountNum > 0):?>
-            <input type="submit" name="updated" value="Update Thing"/>
+            <input type="submit" name="updated" value="Update Account"/>
         <?php elseif ($AccountNum < 0):?>
-            <input type="submit" name="created" value="Create Thing"/>
+            <input type="submit" name="created" value="Create Account"/>
         <?php endif;?>
     </form>
 
@@ -50,7 +50,7 @@ if(isset($_POST["updated"]) || isset($_POST["created"])){
     $AccountNum = $_POST["Account_Number"];
     $AccountType = $_POST["Account_Type"];
     $AccountBalance = $_POST["Account Balance"];
-    if(!empty($name) && !empty($AccountNum1)&& !empty($Accounttype)&& !empty($balance)){
+    if(!empty($name) && !empty($AccountNum1)&& !empty($AccountType)&& !empty($AccountBalance)){
         try{
             if(isset($_POST["updated"])) {
                 $stmt = $db->prepare("UPDATE Account set Name='$name', Account_Type='$AccountType', Account_Balance=$AccountBalance where Account_Number=$AccountNum");
@@ -85,7 +85,7 @@ if(isset($_POST["updated"]) || isset($_POST["created"])){
         }
     }
     else{
-        echo "Name and quantity must not be empty.";
+        echo "Name and amount must not be empty.";
     }
 }
 ?>
