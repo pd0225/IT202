@@ -42,7 +42,7 @@ if(isset($_POST["Account"])){
             else{
                 //echo var_export($result, true);
                 if ($result){
-                    echo "Successfully inserted new thing: " . $name;
+                    echo "Successfully inserted new account: " . $name;
                 }
                 else{
                     echo "Error inserting record";

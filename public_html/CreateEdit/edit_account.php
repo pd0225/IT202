@@ -10,25 +10,25 @@ function get($arr, $key){
     }
     return "";
 }
-if(isset($_GET["thingId"])){
-    $thingId = $_GET["thingId"];
-    $stmt = $db->prepare("SELECT * FROM Things where id = :id");
-    $stmt->execute([":id"=>$thingId]);
+if(isset($_GET["AccountId"])){
+    $thingId = $_GET["AccountId"];
+    $stmt = $db->prepare("SELECT * FROM Account where id = :id");
+    $stmt->execute([":id"=>$AccountId]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 else{
-    echo "No thingId provided in url, don't forget this or sample won't work.";
+    echo "No AccountId provided in url, don't forget this or sample won't work.";
 }
 ?>
 
     <form method="POST">
-        <label for="thing">Thing Name
+        <label for="Account">Account Name
             <input type="text" id="thing" name="name" value="<?php echo get($result, "name");?>" />
         </label>
         <label for="q">Quantity
             <input type="number" id="q" name="quantity" value="<?php echo get($result, "quantity");?>" />
         </label>
-        <input type="submit" name="updated" value="Update Thing"/>
+        <input type="submit" name="updated" value="Update Account"/>
     </form>
 
 <?php
@@ -37,11 +37,11 @@ if(isset($_POST["updated"])){
     $quantity = $_POST["quantity"];
     if(!empty($name) && !empty($quantity)){
         try{
-            $stmt = $db->prepare("UPDATE Things set name = :name, quantity=:quantity where id=:id");
+            $stmt = $db->prepare("UPDATE Account set name = :name, quantity=:quantity where id=:id");
             $result = $stmt->execute(array(
                 ":name" => $name,
                 ":quantity" => $quantity,
-                ":id" => $thingId
+                ":id" => $AccountId
             ));
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
@@ -50,7 +50,7 @@ if(isset($_POST["updated"])){
             else{
                 echo var_export($result, true);
                 if ($result){
-                    echo "Successfully updated thing: " . $name;
+                    echo "Successfully updated Account: " . $name;
                 }
                 else{
                     echo "Error updating record";

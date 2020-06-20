@@ -73,7 +73,7 @@ if(isset($_POST["updated"]) || isset($_POST["created"])){
             else{
                 echo var_export($result, true);
                 if ($result){
-                    echo "Successfully inserted or updated thing: " . $name;
+                    echo "Successfully inserted or updated account: " . $name;
                 }
                 else{
                     echo "Error inserting or updating record";
