@@ -21,15 +21,15 @@ else{
 }
 ?>
 
-    <form method="POST">
-        <label for="account">Account Name
-            <input type="text" id="account" name="name" value="<?php echo get($result, "name");?>" />
-        </label>
-        <label for="b">Balance
-            <input type="number" id="b" name="balance" value="<?php echo get($result, "balance");?>" />
-        </label>
-        <input type="submit" name="updated" value="Update Account"/>
-    </form>
+<form method="POST">
+	<label for="account">Account Name
+	<input type="text" id="account" name="name" value="<?php echo get($result, "name");?>" />
+	</label>
+	<label for="b">Balance
+	<input type="number" id="b" name="balance" value="<?php echo get($result, "balance");?>" />
+	</label>
+	<input type="submit" name="updated" value="Update Account"/>
+</form>
 
 <?php
 if(isset($_POST["updated"])){
