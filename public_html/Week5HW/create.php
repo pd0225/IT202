@@ -1,11 +1,11 @@
 <form method="POST">
-    <label for="account">Account Name
-        <input type="text" id="account" name="name" />
-    </label>
-    <label for="b">Balance
-        <input type="number" id="b" name="balance" />
-    </label>
-    <input type="submit" name="created" value="Create Account"/>
+	<label for="account">Account Name
+	<input type="text" id="account" name="name" />
+	</label>
+	<label for="b">Balance
+	<input type="number" id="b" name="balance" />
+	</label>
+	<input type="submit" name="created" value="Create Account"/>
 </form>
 
 <?php
@@ -44,4 +44,4 @@ if(isset($_POST["created"])){
         echo "Name and balance must not be empty.";
     }
 }
-?>
+?> 
