@@ -22,8 +22,8 @@ else{
 ?>
 
     <form method="POST">
-        <label for="AccountName">Account Name
-            <input type="text" id="account" name="name" value="<?php echo get($result, "AccountName");?>" />
+        <label for="name">Account Name
+            <input type="text" id="account" name="name" value="<?php echo get($result, "name");?>" />
         </label>
         <label for="b">Account Balance
             <input type="number" id="b" name="balance" value="<?php echo get($result, "AccountBalance");?>" />
@@ -34,12 +34,12 @@ else{
 <?php
 if(isset($_POST["updated"])){
     $name = $_POST["name"];
-    $balance = $_POST["balance"];
+    $AccountBalance = $_POST["AccountBalance"];
     if(!empty($name) && !empty($deposit)){
         try{
-            $stmt = $db->prepare("UPDATE Account set name = :AccountName, balance=:AccountBalance where id=:id");
+            $stmt = $db->prepare("UPDATE Account set name = :name, balance=:AccountBalance where id=:id");
             $result = $stmt->execute(array(
-                ":AccountName" => $AccountName,
+                ":name" => $name,
                 ":AccountBalance" => $AccountBalance,
                 ":id" => $accountId
             ));
@@ -50,7 +50,7 @@ if(isset($_POST["updated"])){
             else{
                 echo var_export($result, true);
                 if ($result){
-                    echo "Successfully updated account: " . $AccountName;
+                    echo "Successfully updated account: " . $name;
                 }
                 else{
                     echo "Error updating account";

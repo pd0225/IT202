@@ -26,7 +26,7 @@ else{
 
     <form method="POST">
         <label for="account">Account Name
-            <input type="text" id="account" name="AccountName" value="<?php echo get($result, "AccountName");?>" />
+            <input type="text" id="account" name="name" value="<?php echo get($result, "name");?>" />
         </label>
         <label for="b">Balance
             <input type="number" id="b" name="AccountBalance" value="<?php echo get($result, "AccountBalance");?>" />
@@ -40,22 +40,22 @@ else{
 
 <?php
 if(isset($_POST["updated"]) || isset($_POST["created"])){
-    $AccountName = $_POST["AccountName"];
+    $name = $_POST["name"];
     $AccountBalance = $_POST["AccountBalance"];
-    if(!empty($AccountName) && !empty($AccountBalance)){
+    if(!empty($name) && !empty($AccountBalance)){
         try{
             if($AccountId > 0) {
-                $stmt = $db->prepare("UPDATE Account set AccountName = :AccountName, AccountBalance=:AccountBalance where id=:id");
+                $stmt = $db->prepare("UPDATE Account set name = :name, AccountBalance=:AccountBalance where id=:id");
                 $result = $stmt->execute(array(
-                    ":AccountName" => $AccountName,
+                    ":name" => $name,
                     ":AccountBalance" => $AccountBalance,
                     ":id" => $accountId
                 ));
             }
             else{
-                $stmt = $db->prepare("INSERT INTO Account (AccountName, AccountBalance) VALUES (:AccountName, :AccountBalance)");
+                $stmt = $db->prepare("INSERT INTO Account (name, AccountBalance) VALUES (:name, :AccountBalance)");
                 $result = $stmt->execute(array(
-                    ":AccountName" => $AccountName,
+                    ":name" => $name,
                     ":AccountBalance" => $AccountBalance
                 ));
             }
@@ -66,7 +66,7 @@ if(isset($_POST["updated"]) || isset($_POST["created"])){
             else{
                 echo var_export($result, true);
                 if ($result){
-                    echo "Successfully inserted or updated account: " . $AccountName;
+                    echo "Successfully inserted or updated account: " . $name;
                 }
                 else{
                     echo "Error inserting or updating account";

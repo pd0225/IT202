@@ -1,6 +1,6 @@
 <form method="POST">
     <label for="account">Account Name
-        <input type="text" id="account" name="AccountName" />
+        <input type="text" id="account" name="name" />
     </label>
     <label for="b">Balance
         <input type="number" id="b" name="AccountBalance" />
@@ -10,16 +10,16 @@
 
 <?php
 if(isset($_POST["created"])){
-    $AccountName = $_POST["AccountName"];
+    $name = $_POST["name"];
     $AccountBalance = $_POST["AccountBalance"];
-    if(!empty($AccountName) && !empty($AccounBalance)){
+    if(!empty($name) && !empty($AccounBalance)){
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Account (name, AccountBalance) VALUES (:AccountName, :AccountBalance)");
+            $stmt = $db->prepare("INSERT INTO Account (name, AccountBalance) VALUES (:name, :AccountBalance)");
             $result = $stmt->execute(array(
-                ":AccountName" => $AccountName,
+                ":name" => $name,
                 ":AccountBalance" => $AccountBalance
             ));
             $e = $stmt->errorInfo();
@@ -29,7 +29,7 @@ if(isset($_POST["created"])){
             else{
                 echo var_export($result, true);
                 if ($result){
-                    echo "Successfully created new account: " . $AccountName;
+                    echo "Successfully created new account: " . $name;
                 }
                 else{
                     echo "Error creating account";

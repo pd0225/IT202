@@ -25,8 +25,8 @@ else{
 ?>
 
     <form method="POST">
-        <label for="AccountName">Account Name
-            <input type="text" id="account" name="Account Name" value="<?php echo get($result, "AccountName");?>" />
+        <label for="name">Name
+            <input type="text" id="account" name="Account Name" value="<?php echo get($result, "name");?>" />
         </label>
         <label for="b">Balance
             <input type="number" id="b" name="Account Balance" value="<?php echo get($result, "AccountBalance");?>" />
@@ -42,9 +42,9 @@ else{
 <?php
 if(isset($_POST["updated"]) || isset($_POST["created"]) || isset($_POST["delete"])){
     $delete = isset($_POST["delete"]);
-    $AccountName = $_POST["AccountName"];
+    $name = $_POST["name"];
     $AccountBalance = $_POST["AccountBalance"];
-    if(!empty($AccountName) && !empty($AccountBalance)){
+    if(!empty($name) && !empty($AccountBalance)){
         try{
             if($accountId > 0) {
                 if($delete){
@@ -56,16 +56,16 @@ if(isset($_POST["updated"]) || isset($_POST["created"]) || isset($_POST["delete"
                 else {
                     $stmt = $db->prepare("UPDATE Account set name = :name, AccountBalance=:AccountBalance where id=:id");
                     $result = $stmt->execute(array(
-                        ":AccountName" => $AccountName,
+                        ":name" => $name,
                         ":AccountBalance" => $AccountBalance,
                         ":id" => $account
                     ));
                 }
             }
             else{
-                $stmt = $db->prepare("INSERT INTO Account (AccountName, AccountBalance) VALUES (:AccountName, :AccountBalance)");
+                $stmt = $db->prepare("INSERT INTO Account (name, AccountBalance) VALUES (:AccountName, :AccountBalance)");
                 $result = $stmt->execute(array(
-                    ":AccountName" => $AccountName,
+                    ":name" => $name,
                     ":AccountBalance" => $AccountBalance
                 ));
             }
@@ -76,7 +76,7 @@ if(isset($_POST["updated"]) || isset($_POST["created"]) || isset($_POST["delete"
             else{
                 echo var_export($result, true);
                 if ($result){
-                    echo "Successfully interacted with account: " . $AccountName;
+                    echo "Successfully interacted with account: " . $name;
                 }
                 else{
                     echo "Error interacting account";
