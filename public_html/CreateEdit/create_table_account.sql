@@ -1,9 +1,8 @@
-CREATE TABLE Account (
+CREATE TABLE Accounts (
     id int auto_increment,
-    AccountNum varchar(12) NOT NULL,
-    user_id int,
-    AccountType varchar(20),
-    OpenedDate DATETIME default CURRENT_TIMESTAMP
+    AccountName varchar(20) unique,
     AccountBalance decimal(12,2) default 0.00,
+    created datetime default current_timestamp,
+    modified datetime default current_timestamp on update current_timestamp,
     primary key (id)
 )
