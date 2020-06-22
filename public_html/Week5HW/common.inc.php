@@ -13,4 +13,4 @@ function getDB(){
         $db = new PDO($connection_string, $dbuser, $dbpass);
     }
     return $db;
-}
+} 
