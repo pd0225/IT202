@@ -12,7 +12,7 @@ function get($arr, $key){
 }
 if(isset($_GET["accountId"])){
     $accountId = $_GET["accountId"];
-    $stmt = $db->prepare("SELECT * FROM Account where id = :id");
+    $stmt = $db->prepare("SELECT * FROM Accounts where id = :id");
     $stmt->execute([":id"=>$accountId]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 }
@@ -22,11 +22,11 @@ else{
 ?>
 
     <form method="POST">
-        <label for="name">Account Name
+        <label for="account">Account Name
             <input type="text" id="account" name="name" value="<?php echo get($result, "name");?>" />
         </label>
-        <label for="b">Account Balance
-            <input type="number" id="b" name="balance" value="<?php echo get($result, "AccountBalance");?>" />
+        <label for="b">Balance
+            <input type="number" id="b" name="balance" value="<?php echo get($result, "balance");?>" />
         </label>
         <input type="submit" name="updated" value="Update Account"/>
     </form>
@@ -34,13 +34,13 @@ else{
 <?php
 if(isset($_POST["updated"])){
     $name = $_POST["name"];
-    $AccountBalance = $_POST["AccountBalance"];
-    if(!empty($name) && !empty($deposit)){
+    $balance = $_POST["balance"];
+    if(!empty($name) && !empty($balance)){
         try{
-            $stmt = $db->prepare("UPDATE Account set name = :name, balance=:AccountBalance where id=:id");
+            $stmt = $db->prepare("UPDATE Accounts set name = :name, balance=:balance where id=:id");
             $result = $stmt->execute(array(
                 ":name" => $name,
-                ":AccountBalance" => $AccountBalance,
+                ":balance" => $balance,
                 ":id" => $accountId
             ));
             $e = $stmt->errorInfo();

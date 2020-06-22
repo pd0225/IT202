@@ -1,4 +1,4 @@
-<?php
+<<?php
 require("config.php");
 $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
 $db = new PDO($connection_string, $dbuser, $dbpass);
@@ -12,7 +12,7 @@ function get($arr, $key){
 }
 if(isset($_GET["accountId"])){
     $accountId = $_GET["accountId"];
-    $stmt = $db->prepare("SELECT * FROM Account where id = :id");
+    $stmt = $db->prepare("SELECT * FROM Accounts where id = :id");
     $stmt->execute([":id"=>$accountId]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     if(!$result){
@@ -24,49 +24,49 @@ else{
 }
 ?>
 
-    <form method="POST">
-        <label for="name">Name
-            <input type="text" id="account" name="Account Name" value="<?php echo get($result, "name");?>" />
-        </label>
-        <label for="b">Balance
-            <input type="number" id="b" name="Account Balance" value="<?php echo get($result, "AccountBalance");?>" />
-        </label>
-        <?php if($accountId > 0):?>
-            <input type="submit" name="updated" value="Update Account"/>
-            <input type="submit" name="delete" value="Delete Account"/>
-        <?php elseif ($accountId < 0):?>
-            <input type="submit" name="created" value="Create Account"/>
-        <?php endif;?>
-    </form>
+<form method="POST">
+    <label for="account">Account Name
+        <input type="text" id="account" name="name" value="<?php echo get($result, "name");?>" />
+    </label>
+    <label for="b">Balance
+        <input type="number" id="b" name="balance" value="<?php echo get($result, "balance");?>" />
+    </label>
+    <?php if($accountId > 0):?>
+        <input type="submit" name="updated" value="Update Account"/>
+        <input type="submit" name="delete" value="Delete Account"/>
+    <?php elseif ($accountId < 0):?>
+        <input type="submit" name="created" value="Create Account"/>
+    <?php endif;?>
+</form>
 
 <?php
 if(isset($_POST["updated"]) || isset($_POST["created"]) || isset($_POST["delete"])){
     $delete = isset($_POST["delete"]);
     $name = $_POST["name"];
-    $AccountBalance = $_POST["AccountBalance"];
-    if(!empty($name) && !empty($AccountBalance)){
+    $balance = $_POST["balance"];
+    if(!empty($name) && !empty($balance)){
         try{
             if($accountId > 0) {
                 if($delete){
-                    $stmt = $db->prepare("DELETE from Account where id=:id");
+                    $stmt = $db->prepare("DELETE from Accounts where id=:id");
                     $result = $stmt->execute(array(
                         ":id" => $accountId
                     ));
                 }
                 else {
-                    $stmt = $db->prepare("UPDATE Account set name = :name, AccountBalance=:AccountBalance where id=:id");
+                    $stmt = $db->prepare("UPDATE Accounts set name = :name, balance=:balance where id=:id");
                     $result = $stmt->execute(array(
                         ":name" => $name,
-                        ":AccountBalance" => $AccountBalance,
-                        ":id" => $account
+                        ":balance" => $balance,
+                        ":id" => $accountId
                     ));
                 }
             }
             else{
-                $stmt = $db->prepare("INSERT INTO Account (name, AccountBalance) VALUES (:AccountName, :AccountBalance)");
+                $stmt = $db->prepare("INSERT INTO Accounts (name, balance) VALUES (:name, :balance)");
                 $result = $stmt->execute(array(
                     ":name" => $name,
-                    ":AccountBalance" => $AccountBalance
+                    ":balance" => $balance
                 ));
             }
             $e = $stmt->errorInfo();

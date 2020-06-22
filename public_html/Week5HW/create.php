@@ -3,7 +3,7 @@
         <input type="text" id="account" name="name" />
     </label>
     <label for="b">Balance
-        <input type="number" id="b" name="AccountBalance" />
+        <input type="number" id="b" name="balance" />
     </label>
     <input type="submit" name="created" value="Create Account"/>
 </form>
@@ -11,16 +11,16 @@
 <?php
 if(isset($_POST["created"])){
     $name = $_POST["name"];
-    $AccountBalance = $_POST["AccountBalance"];
-    if(!empty($name) && !empty($AccounBalance)){
+    $balance = $_POST["balance"];
+    if(!empty($name) && !empty($balance)){
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Account (name, AccountBalance) VALUES (:name, :AccountBalance)");
+            $stmt = $db->prepare("INSERT INTO Accounts (name, balance) VALUES (:name, :balance)");
             $result = $stmt->execute(array(
                 ":name" => $name,
-                ":AccountBalance" => $AccountBalance
+                ":balance" => $balance
             ));
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
