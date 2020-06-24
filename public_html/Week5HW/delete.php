@@ -1,4 +1,4 @@
-<<?php
+<?php
 require("config.php");
 $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
 $db = new PDO($connection_string, $dbuser, $dbpass);
@@ -25,14 +25,14 @@ else{
 ?>
 
 <form method="POST">
-    <label for="account">Account Name
-        <input type="text" id="account" name="name" value="<?php echo get($result, "name");?>" />
-    </label>
-    <label for="b">Balance
-        <input type="number" id="b" name="balance" value="<?php echo get($result, "balance");?>" />
-    </label>
+	<label for="account">Account Name
+	<input type="text" id="account" name="name" value="<?php echo get($result, "name");?>" />
+	</label>
+	<label for="b">Balance
+	<input type="number" id="b" name="balance" value="<?php echo get($result, "balance");?>" />
+	</label>
     <?php if($accountId > 0):?>
-        <input type="submit" name="updated" value="Update Account"/>
+	    <input type="submit" name="updated" value="Update Account"/>
         <input type="submit" name="delete" value="Delete Account"/>
     <?php elseif ($accountId < 0):?>
         <input type="submit" name="created" value="Create Account"/>
