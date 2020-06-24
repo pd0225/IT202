@@ -1,1 +1,0 @@
-INSERT INTO Accounts (name, AccountBalance) VALUES (:name, AccountBalance)
