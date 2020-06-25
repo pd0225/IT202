@@ -5,7 +5,7 @@ full closing tag-->
     <label for="Accounts">Account Name
         <input type="text" id="Accounts" name="name" required />
     </label>
-    <label for="q">AccountBalance
+    <label for="b">AccountBalance
         <input type="number" id="b" name="AccountBalance" required min="1" />
     </label>
     <input type="submit" name="created" value="Create Account"/>
@@ -13,7 +13,7 @@ full closing tag-->
 <?php
 if(isset($_POST["created"])) {
     $name = "";
-    $quantity = -1;
+    $AccountBalance = -1;
     if(isset($_POST["name"]) && !empty($_POST["name"])){
         $name = $_POST["name"];
     }
