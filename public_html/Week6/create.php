@@ -5,8 +5,8 @@ full closing tag-->
     <label for="account">Account Name
         <input type="text" id="account" name="name" required />
     </label>
-    <label for="b">Account Balance
-        <input type="number" id="b" name="AccountBalance" required min="0" />
+    <label for="b">Balance
+        <input type="number" id="b" name="balance" required min="0" />
     </label>
     <input type="submit" name="created" value="Create Account"/>
 </form>
@@ -34,7 +34,7 @@ if(isset($_POST["created"])) {
             $stmt = getDB()->prepare($query);
             $result = $stmt->execute(array(
                 ":name" => $name,
-                ":balance" => $AccountBalance
+                ":balance" => $balance
             ));
             $e = $stmt->errorInfo();
             if ($e[0] != "00000") {
