@@ -1,7 +1,7 @@
 <?php
 $AccountsId = -1;
-if(isset($_GET["accountId"]) && !empty($_GET["accountId"])){
-    $AccountsId = $_GET["accountId"];
+if(isset($_GET["AccountsId"]) && !empty($_GET["AccountsId"])){
+    $AccountsId = $_GET["AccountsId"];
 }
 $result = array();
 require("common.inc.php");
@@ -58,13 +58,13 @@ if(isset($_POST["updated"])){
 <?php
 //moved the content down here so it pulls the update from the table without having to refresh the page or redirect
 //now my success message appears above the form so I'd have to further restructure my code to get the desired output/layout
-if($accountId > -1){
+if($AccountsId > -1){
     $query = file_get_contents(__DIR__ . "/queries/select_one_table_accounts.sql");
     if(isset($query) && !empty($query)) {
         //Note: SQL File contains a "LIMIT 1" although it's not necessary since ID should be unique (i.e., one record)
         try {
             $stmt = getDB()->prepare($query);
-            $stmt->execute([":id" => $accountId]);
+            $stmt->execute([":id" => $AccountsId]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
         }
         catch (Exception $e){

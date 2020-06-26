@@ -12,7 +12,7 @@
                 }
             }
         };
-        xhttp.open("GET", "ajax_delete.php?accountId=" + id, true);
+        xhttp.open("GET", "ajax_delete.php?AccountsId=" + id, true);
         xhttp.send();
     }
     function fetchAccounts(){
@@ -47,7 +47,7 @@
         xhttp.send();
     }
 </script>
-<body onload="fetchaccounts();">
+<body onload="fetchAccounts();">
 <h4>Raw Data:</h4>
 <div id="raw"></div>
 <h4>Parsed Data:</h4>

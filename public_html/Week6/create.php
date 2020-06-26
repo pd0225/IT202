@@ -23,7 +23,7 @@ if(isset($_POST["created"])) {
         }
     }
     //If name or AccountBalance is invalid, don't do the DB part
-    if(empty($name) || $AccountBalance < 1 ){
+    if(empty($name) || $AccountBalance < 0 ){
         echo "Name must not be empty and Account Balance must be greater than or equal to 0";
         die();//terminates the rest of the script
     }
