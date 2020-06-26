@@ -1,13 +1,13 @@
 <?php
 $result = array("status"=>200, "message"=>"Nothing happened");
-if (isset($_GET["AccountsId"]) && !empty($_GET["AccountsId"])){
-    if(is_numeric($_GET["AccountsId"])){
-        $AccountsId = (int)$_GET["AccountsId"];
+if (isset($_GET["accountId"]) && !empty($_GET["accountId"])){
+    if(is_numeric($_GET["accountId"])){
+        $accountId = (int)$_GET["accountId"];
         $query = file_get_contents(__DIR__ . "/queries/delete_one_table_accounts.sql");
         if(isset($query) && !empty($query)) {
             require("common.inc.php");
             $stmt = getDB()->prepare($query);
-            $stmt->execute([":id"=>$AccountsId]);
+            $stmt->execute([":id"=>$accountId]);
             $e = $stmt->errorInfo();
             if($e[0] == "00000"){
                 //we're just going to redirect back to the list
