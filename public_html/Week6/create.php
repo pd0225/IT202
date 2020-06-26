@@ -5,8 +5,8 @@ full closing tag-->
     <label for="Accounts">Account Name
         <input type="text" id="Accounts" name="name" required />
     </label>
-    <label for="b">AccountBalance
-        <input type="number" id="b" name="AccountBalance" required min="1" />
+    <label for="b">Account Balance
+        <input type="number" id="b" name="AccountBalance" required min="0" />
     </label>
     <input type="submit" name="created" value="Create Account"/>
 </form>
@@ -19,12 +19,12 @@ if(isset($_POST["created"])) {
     }
     if(isset($_POST["AccountBalance"]) && !empty($_POST["AccountBalance"])){
         if(is_numeric($_POST["AccountBalance"])){
-            $quantity = (int)$_POST["AccountBalance"];
+            $AccountBalance = (int)$_POST["AccountBalance"];
         }
     }
     //If name or AccountBalance is invalid, don't do the DB part
     if(empty($name) || $AccountBalance < 1 ){
-        echo "Name must not be empty and Account Balance must be greater than or equal to 1";
+        echo "Name must not be empty and Account Balance must be greater than or equal to 0";
         die();//terminates the rest of the script
     }
     try {

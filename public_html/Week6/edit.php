@@ -1,7 +1,7 @@
 <?php
 $AccountsId = -1;
-if(isset($_GET["thingId"]) && !empty($_GET["AccountsId"])){
-    $AccountsId = $_GET["AccountsId"];
+if(isset($_GET["accountId"]) && !empty($_GET["accountId"])){
+    $AccountsId = $_GET["accountId"];
 }
 $result = array();
 require("common.inc.php");
@@ -9,7 +9,7 @@ require("common.inc.php");
 <?php
 if(isset($_POST["updated"])){
     $name = "";
-    $AccountBalancec = -1;
+    $AccountBalance = -1;
     if(isset($_POST["name"]) && !empty($_POST["name"])){
         $name = $_POST["name"];
     }
@@ -21,14 +21,14 @@ if(isset($_POST["updated"])){
     if(!empty($name) && $AccountBalance > -1){
         try{
             $query = NULL;
-            echo "[Quantity" . $AccountBalance . "]";
+            echo "[Balance" . $AccountBalance . "]";
             $query = file_get_contents(__DIR__ . "/queries/update_table_accounts.sql");
             if(isset($query) && !empty($query)) {
                 $stmt = getDB()->prepare($query);
                 $result = $stmt->execute(array(
                     ":name" => $name,
-                    ":AccountsBalance" => $AccountBalance,
-                    ":id" => $AccountsId
+                    ":AccountBalance" => $AccountBalance,
+                    ":id" => $balanceId
                 ));
                 $e = $stmt->errorInfo();
                 if ($e[0] != "00000") {
@@ -58,13 +58,13 @@ if(isset($_POST["updated"])){
 <?php
 //moved the content down here so it pulls the update from the table without having to refresh the page or redirect
 //now my success message appears above the form so I'd have to further restructure my code to get the desired output/layout
-if($AccountsId > -1){
+if($accountId > -1){
     $query = file_get_contents(__DIR__ . "/queries/select_one_table_accounts.sql");
     if(isset($query) && !empty($query)) {
         //Note: SQL File contains a "LIMIT 1" although it's not necessary since ID should be unique (i.e., one record)
         try {
             $stmt = getDB()->prepare($query);
-            $stmt->execute([":id" => $AccountsId]);
+            $stmt->execute([":id" => $accountId]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
         }
         catch (Exception $e){
@@ -83,13 +83,13 @@ else{
 <!-- note although <script> tag "can" be self terminating some browsers require the
 full closing tag-->
 <form method="POST"onsubmit="return validate(this);">
-    <label for="Accounts">Account Name
+    <label for="account">Account Name
         <!-- since the last assignment we added a required attribute to the form elements-->
-        <input type="text" id="thing" name="name" value="<?php echo get($result, "name");?>" required />
+        <input type="text" id="account" name="name" value="<?php echo get($result, "name");?>" required />
     </label>
-    <label for="q">Quantity
+    <label for="b">Balance
         <!-- We also added a minimum value for our number field-->
-        <input type="number" id="q" name="AccountBalance" value="<?php echo get($result, "AccountBalance");?>" required min="1"/>
+        <input type="number" id="b" name="AccountBalance" value="<?php echo get($result, "AccountBalance");?>" required min="0"/>
     </label>
     <input type="submit" name="updated" value="Update Account"/>
 </form>

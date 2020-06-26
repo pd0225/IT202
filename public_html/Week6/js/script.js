@@ -10,10 +10,10 @@ function validate(form){
             form.name.value.length == 0) {
             errors.push("Name must not be empty");
         }
-        if (form.AccountBalance.value == null ||
-            form.AccountBalance.value == undefined ||
-            form.AccountBalance.value.length == 0 || form.AccountBalance.value < 0) {
-            errors.push("Account Balance must not be empty and a positive number");
+        if (form.quantity.value == null ||
+            form.quantity.value == undefined ||
+            form.quantity.value.length == 0 || form.quantity.value < 0) {
+            errors.push("Account balance must not be empty and a positive number");
         }
     }
     if(errors.length > 0){

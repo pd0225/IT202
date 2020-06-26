@@ -1,1 +1,1 @@
-SELECT * FROM Accounts where name like CONCAT('%', :accounts, '%')
+SELECT * FROM Accounts where name like CONCAT('%', :account, '%')
