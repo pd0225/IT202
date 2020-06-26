@@ -6,6 +6,20 @@ if(isset($_GET["accountId"]) && !empty($_GET["accountId"])){
 $result = array();
 require("common.inc.php");
 ?>
+<script src="js/script.js"></script>
+<!-- note although <script> tag "can" be self terminating some browsers require the
+full closing tag-->
+<form method="POST"onsubmit="return validate(this);">
+    <label for="account">Account Name
+        <!-- since the last assignment we added a required attribute to the form elements-->
+        <input type="text" id="account" name="name" value="<?php echo get($result, "name");?>" required />
+    </label>
+    <label for="b">Balance
+        <!-- We also added a minimum value for our number field-->
+        <input type="number" id="b" name="balance" value="<?php echo get($result, "AccountBalance");?>" required min="0"/>
+    </label>
+    <input type="submit" name="updated" value="Update Account"/>
+</form>
 <?php
 if(isset($_POST["updated"])){
     $name = "";
@@ -79,17 +93,3 @@ else{
     echo "No accountId provided in url, don't forget this or sample won't work.";
 }
 ?>
-<script src="js/script.js"></script>
-<!-- note although <script> tag "can" be self terminating some browsers require the
-full closing tag-->
-<form method="POST"onsubmit="return validate(this);">
-    <label for="account">Account Name
-        <!-- since the last assignment we added a required attribute to the form elements-->
-        <input type="text" id="account" name="name" value="<?php echo get($result, "name");?>" required />
-    </label>
-    <label for="b">Balance
-        <!-- We also added a minimum value for our number field-->
-        <input type="number" id="b" name="balance" value="<?php echo get($result, "AccountBalance");?>" required min="0"/>
-    </label>
-    <input type="submit" name="updated" value="Update Account"/>
-</form>
