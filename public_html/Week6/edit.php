@@ -21,7 +21,7 @@ if(isset($_POST["updated"])){
     if(!empty($name) && $AccountBalance > -1){
         try{
             $query = NULL;
-            echo "[Account Balance" . $AccountBalance . "]";
+            echo "[AccountBalance" . $AccountBalance . "]";
             $query = file_get_contents(__DIR__ . "/queries/update_table_accounts.sql");
             if(isset($query) && !empty($query)) {
                 $stmt = getDB()->prepare($query);
