@@ -1,7 +1,7 @@
 <?php
-$AccountsId = -1;
-if(isset($_GET["AccountsId"]) && !empty($_GET["AccountsId"])){
-    $AccountsId = $_GET["AccountsId"];
+$accountId = -1;
+if(isset($_GET["accountId"]) && !empty($_GET["accountId"])){
+    $accountId = $_GET["accountId"];
 }
 $result = array();
 require("common.inc.php");
@@ -15,13 +15,13 @@ if(isset($_POST["updated"])){
     }
     if(isset($_POST["AccountBalance"]) && !empty($_POST["AccountBalance"])){
         if(is_numeric($_POST["AccountBalance"])){
-            $AccountBalance = (int)$_POST["AccountBalance"];
+            $quantity = (int)$_POST["AccountBalance"];
         }
     }
     if(!empty($name) && $AccountBalance > -1){
         try{
             $query = NULL;
-            echo "[Balance" . $AccountBalance . "]";
+            echo "[Account Balance" . $AccountBalance . "]";
             $query = file_get_contents(__DIR__ . "/queries/update_table_accounts.sql");
             if(isset($query) && !empty($query)) {
                 $stmt = getDB()->prepare($query);
@@ -35,7 +35,7 @@ if(isset($_POST["updated"])){
                     echo var_export($e, true);
                 } else {
                     if ($result) {
-                        echo "Successfully updated account: " . $name;
+                        echo "Successfully updated thing: " . $name;
                     } else {
                         echo "Error updating record";
                     }
@@ -50,7 +50,7 @@ if(isset($_POST["updated"])){
         }
     }
     else{
-        echo "Name and Account Balance must not be empty.";
+        echo "Name and account balance must not be empty.";
     }
 }
 ?>
@@ -58,13 +58,13 @@ if(isset($_POST["updated"])){
 <?php
 //moved the content down here so it pulls the update from the table without having to refresh the page or redirect
 //now my success message appears above the form so I'd have to further restructure my code to get the desired output/layout
-if($AccountsId > -1){
+if($thingId > -1){
     $query = file_get_contents(__DIR__ . "/queries/select_one_table_accounts.sql");
     if(isset($query) && !empty($query)) {
         //Note: SQL File contains a "LIMIT 1" although it's not necessary since ID should be unique (i.e., one record)
         try {
             $stmt = getDB()->prepare($query);
-            $stmt->execute([":id" => $AccountsId]);
+            $stmt->execute([":id" => $accountId]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
         }
         catch (Exception $e){
@@ -76,7 +76,7 @@ if($AccountsId > -1){
     }
 }
 else{
-    echo "No AccountsId provided in url, don't forget this or sample won't work.";
+    echo "No accountId provided in url, don't forget this or sample won't work.";
 }
 ?>
 <script src="js/script.js"></script>
@@ -89,7 +89,7 @@ full closing tag-->
     </label>
     <label for="b">Balance
         <!-- We also added a minimum value for our number field-->
-        <input type="number" id="b" name="AccountBalance" value="<?php echo get($result, "AccountBalance");?>" required min="0"/>
+        <input type="number" id="b" name="balance" value="<?php echo get($result, "AccountBalance");?>" required min="0"/>
     </label>
     <input type="submit" name="updated" value="Update Account"/>
 </form>

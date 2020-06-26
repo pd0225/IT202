@@ -5,7 +5,7 @@ if(isset($_POST["search"])){
 }
 ?>
     <form method="POST">
-        <input type="text" name="search" placeholder="Search for Account"
+        <input type="text" name="search" placeholder="Search for account"
                value="<?php echo $search;?>"/>
         <input type="submit" value="Search"/>
     </form>
@@ -39,7 +39,7 @@ if(isset($search)) {
             <li>
                 <?php echo get($row, "name")?>
                 <?php echo get($row, "AccountBalance");?>
-                <a href="delete.php?AccountsId=<?php echo get($row, "id");?>">Delete</a>
+                <a href="delete.php?accountId=<?php echo get($row, "id");?>">Delete</a>
             </li>
         <?php endforeach;?>
     </ul>

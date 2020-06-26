@@ -2,8 +2,8 @@
 <!-- note although <script> tag "can" be self terminating some browsers require the
 full closing tag-->
 <form method="POST" onsubmit="return validate(this);">
-    <label for="Accounts">Account Name
-        <input type="text" id="Accounts" name="name" required />
+    <label for="account">Account Name
+        <input type="text" id="account" name="name" required />
     </label>
     <label for="b">Account Balance
         <input type="number" id="b" name="AccountBalance" required min="0" />
@@ -13,7 +13,7 @@ full closing tag-->
 <?php
 if(isset($_POST["created"])) {
     $name = "";
-    $AccountBalance = -1;
+    $balance = -1;
     if(isset($_POST["name"]) && !empty($_POST["name"])){
         $name = $_POST["name"];
     }
@@ -22,9 +22,9 @@ if(isset($_POST["created"])) {
             $AccountBalance = (int)$_POST["AccountBalance"];
         }
     }
-    //If name or AccountBalance is invalid, don't do the DB part
+    //If name or balance is invalid, don't do the DB part
     if(empty($name) || $AccountBalance < 0 ){
-        echo "Name must not be empty and Account Balance must be greater than or equal to 0";
+        echo "Name must not be empty and account balance must be greater than or equal to 0";
         die();//terminates the rest of the script
     }
     try {
@@ -41,14 +41,14 @@ if(isset($_POST["created"])) {
                 echo var_export($e, true);
             } else {
                 if ($result) {
-                    echo "Successfully added new account: " . $name;
+                    echo "Successfully inserted new account: " . $name;
                 } else {
                     echo "Error inserting record";
                 }
             }
         }
         else{
-            echo "Failed to find insert_table_accounts.sql file";
+            echo "Failed to find Insert_table_Accounts.sql file";
         }
     }
     catch (Exception $e){
