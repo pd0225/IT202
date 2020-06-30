@@ -87,37 +87,40 @@
             }
             ball.sX *= -1;
         }
-        // Listen for keydown events
-        canvas.addEventListener('keydown', function(e) {
-            if (e.keyCode === W) {
-                keys.W = true;
-            }
-            if (e.keyCode === S) {
-                keys.S = true;
-            }
-            if (e.keyCode === UP) {
-                keys.UP = true;
-            }
-            if (e.keyCode === DOWN) {
-                keys.DOWN = true;
-            }
-        });
+        function attachKeyListeners() {
+            // Listen for keydown events
+            window.addEventListener('keydown', function (e) {
+                console.log("keydown", e);
+                if (e.keyCode === W) {
+                    keys.W = true;
+                }
+                if (e.keyCode === S) {
+                    keys.S = true;
+                }
+                if (e.keyCode === UP) {
+                    keys.UP = true;
+                }
+                if (e.keyCode === DOWN) {
+                    keys.DOWN = true;
+                }
+                console.log(keys);
             });
-        // Listen for keyup events
-        canvas.addEventListener('keyup', function(e) {
-            if (e.keyCode === W) {
-                keys.W = false;
-            }
-            if (e.keyCode === S) {
-                keys.S = false;
-            }
-            if (e.keyCode === UP) {
-                keys.UP = false;
-            }
-            if (e.keyCode === DOWN) {
-                keys.DOWN = false;
-            }
-        });
+            window.addEventListener('keyup', function (e) {
+                console.log("keyup", e);
+                if (e.keyCode === W) {
+                    keys.W = false;
+                }
+                if (e.keyCode === S) {
+                    keys.S = false;
+                }
+                if (e.keyCode === UP) {
+                    keys.UP = false;
+                }
+                if (e.keyCode === DOWN) {
+                    keys.DOWN = false;
+                }
+                console.log(keys);
+            });
         }
         // Create a rectangle object - for paddles, ball, etc
         function makeRect(x, y, width, height, speed, color) {
