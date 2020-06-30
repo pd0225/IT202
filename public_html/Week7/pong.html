@@ -234,6 +234,18 @@
             for (let i = 0; i < drawables.length; i++) {
                 drawables[i].draw();
             }
+            if(y+dy < ballSize) {
+                dy = dy;
+            } else if (y+dy > canvas.height-ballSize) {
+                if(x> paddleX && x < paddelX + paddleWidth){
+                    dy= -dy;
+                }
+                else{
+                    alert("GAME OVER");
+                    document.location.reload();
+                    clearInterval(interval);
+                }
+            }
         }
     </script>
 </head>
