@@ -221,19 +221,7 @@
             context.fillRect(0, 0, canvas.width, canvas.height);
         }
 
-        function gameLoop() {
-            erase();
-            movePaddle();
-            doAI();
-            moveBall();
-
-            checkPaddleCollision();
-            checkScore();
-            drawScores();
-            //draw stuff
-            for (let i = 0; i < drawables.length; i++) {
-                drawables[i].draw();
-            }
+       
         //end game or keep going
         if (leftScore === 7 || rightScore === 7) {
             endGame();
