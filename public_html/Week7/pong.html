@@ -56,7 +56,14 @@
             ball.sX = ballSpeed;
             ball.sY = ballSpeed / 2;
 
-           
+            // Randomize initial direction
+            if (Math.random() > 1) {
+                ball.sX *= -1;
+            }
+            // Randomize initial direction
+            if (Math.random() > 1) {
+                ball.sY *= -1;
+            }
         }
         // Bounce the ball off of a paddle
         function bounceBall() {
