@@ -36,9 +36,9 @@
             canvas = document.getElementById("board");
             if (canvas.getContext) {
                 context = canvas.getContext("2d");
-                leftPaddle = makeRect(25, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#BC0000');
-                rightPaddle = makeRect(canvas.width - paddleWidth - 10, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#0000BC');
-                ball = makeRect(0, 0, ballSize, ballSize, ballSpeed, '#000000');
+                leftPaddle = makeRect(30, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#00ccff');
+                rightPaddle = makeRect(canvas.width - paddleWidth - 10, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#00ff36');
+                ball = makeRect(0, 0, ballSize, ballSize, ballSpeed, '#ffffff');
                 drawables.push(leftPaddle);
                 drawables.push(rightPaddle);
                 drawables.push(ball);
@@ -125,7 +125,7 @@
         // Create a rectangle object - for paddles, ball, etc
         function makeRect(x, y, width, height, speed, color) {
             if (!color)
-                color = '#000000';
+                color = '#ffffff';
             return {
                 x: x,
                 y: y,
@@ -209,7 +209,7 @@
         }
         function drawScores() {
             // Draw the scores
-            context.fillStyle = '#000000';
+            context.fillStyle = '#ffffff';
             context.font = '24px Arial';
             context.textAlign = 'left';
             context.fillText('Score: ' + leftScore, 5, 24);
@@ -217,7 +217,7 @@
             context.fillText('Score: ' + rightScore, canvas.width - 5, 24);
         }
         function erase() {
-            context.fillStyle = '#FFFFFF';
+            context.fillStyle = '#000000';
             context.fillRect(0, 0, canvas.width, canvas.height);
         }
 
@@ -240,7 +240,7 @@
 <body onload="init();">
 <a href="http://bencentra.com/2017-07-11-basic-html5-canvas-games.html">Collection of Canvas based games by Ben Centra</a>
 <main>
-    <canvas id="board" width="600px" height="600px" style="border: 3px solid black;">
+    <canvas id="board" width="800px" height="1000px" style="border: 5px solid #ff0000;">
 
     </canvas>
 </main>
