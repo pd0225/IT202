@@ -12,7 +12,6 @@
         var paddleWidth = 10;
         var paddleHeight = 90;
         var ballSize = 5;
-        var ballShape = circle;
         var ballSpeed = 1;
         var paddleSpeed = 2;
         var drawables = [];
@@ -38,7 +37,7 @@
             if (canvas.getContext) {
                 context = canvas.getContext("2d");
                 leftPaddle = makeRect(25, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#BC0000');
-                rightPaddle = makeRect(canvas.width - paddleWidth - 25, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#0000BC');
+                rightPaddle = makeRect(canvas.width - paddleWidth - 10, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#0000BC');
                 ball = makeRect(0, 0, ballSize, ballSize, ballSpeed, '#000000');
                 drawables.push(leftPaddle);
                 drawables.push(rightPaddle);
@@ -241,7 +240,7 @@
 <body onload="init();">
 <a href="http://bencentra.com/2017-07-11-basic-html5-canvas-games.html">Collection of Canvas based games by Ben Centra</a>
 <main>
-    <canvas id="board" width="600px" height="600px" style="border: 1px solid black;">
+    <canvas id="board" width="600px" height="600px" style="border: 3px solid black;">
 
     </canvas>
 </main>
