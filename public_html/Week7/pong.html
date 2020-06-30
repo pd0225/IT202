@@ -9,9 +9,10 @@
         var leftPaddle;
         var rightPaddle;
         var ball;
-        var paddleWidth = 15;
+        var paddleWidth = 10;
         var paddleHeight = 90;
-        var ballSize = 15;
+        var ballSize = 5;
+        var ballShape = circle;
         var ballSpeed = 1;
         var paddleSpeed = 2;
         var drawables = [];
@@ -89,8 +90,7 @@
         }
         function attachKeyListeners() {
             // Listen for keydown events
-            window.addEventListener('keydown', function (e) {
-                console.log("keydown", e);
+            window.addEventListener('keydown', function(e) {
                 if (e.keyCode === W) {
                     keys.W = true;
                 }
@@ -105,8 +105,7 @@
                 }
                 console.log(keys);
             });
-            window.addEventListener('keyup', function (e) {
-                console.log("keyup", e);
+            window.addEventListener('keyup', function(e) {
                 if (e.keyCode === W) {
                     keys.W = false;
                 }
