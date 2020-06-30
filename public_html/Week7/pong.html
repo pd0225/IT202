@@ -221,14 +221,14 @@
             context.fillRect(0, 0, canvas.width, canvas.height);
         }
 
-        function endGame() {
+        function gameLoop() {
             erase();
             movePaddle();
             doAI();
             moveBall();
 
             checkPaddleCollision();
-            checkScore(7);
+            checkScore();
             drawScores();
             //draw stuff
             for (let i = 0; i < drawables.length; i++) {
