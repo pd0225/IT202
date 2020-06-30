@@ -11,7 +11,7 @@
         var ball;
         var paddleWidth = 10;
         var paddleHeight = 90;
-        var ballSize = 5;
+        var ballSize = 15;
         var ballSpeed = 1;
         var paddleSpeed = 2;
         var drawables = [];
@@ -56,14 +56,7 @@
             ball.sX = ballSpeed;
             ball.sY = ballSpeed / 2;
 
-            // Randomize initial direction
-            if (Math.random() > 0.5) {
-                ball.sX *= -1;
-            }
-            // Randomize initial direction
-            if (Math.random() > 0.5) {
-                ball.sY *= -1;
-            }
+           
         }
         // Bounce the ball off of a paddle
         function bounceBall() {
