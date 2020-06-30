@@ -38,7 +38,7 @@
                 context = canvas.getContext("2d");
                 leftPaddle = makeRect(30, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#00ccff');
                 rightPaddle = makeRect(canvas.width - paddleWidth - 10, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#00ff36');
-                ball = makeRect(0, 0, ballSize, ballSize, ballSpeed, '#ffffff');
+                ball = circle(cx="50", cy="50", r="40", stroke="white", stroke-width="3", '#ffffff');
                 drawables.push(leftPaddle);
                 drawables.push(rightPaddle);
                 drawables.push(ball);
