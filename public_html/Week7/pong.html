@@ -88,7 +88,7 @@
             }
             ball.sX *= -1;
         }
-        function attachKeyListeners() {
+        
             // Listen for keydown events
             window.addEventListener('keydown', function(e) {
                 if (e.keyCode === W) {
@@ -120,7 +120,7 @@
                 }
                 console.log(keys);
             });
-        }
+
         // Create a rectangle object - for paddles, ball, etc
         function makeRect(x, y, width, height, speed, color) {
             if (!color)
