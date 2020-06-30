@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>PONG</title>
     <script>
         //modified from http://jsfiddle.net/bencentra/q1s8gmqv/?utm_source=website&utm_medium=embed&utm_campaign=q1s8gmqv
         var canvas;
@@ -234,18 +235,7 @@
             for (let i = 0; i < drawables.length; i++) {
                 drawables[i].draw();
             }
-            if(y+dy < ballSize) {
-                dy = dy;
-            } else if (y+dy > canvas.height-ballSize) {
-                if(x> paddleX && x < paddelX + paddleWidth){
-                    dy= -dy;
-                }
-                else{
-                    alert("GAME OVER");
-                    document.location.reload();
-                    clearInterval(interval);
-                }
-            }
+
         }
     </script>
 </head>
