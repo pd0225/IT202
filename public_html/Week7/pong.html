@@ -210,7 +210,7 @@
         function drawScores() {
             // Draw the scores
             context.fillStyle = '#ffffff';
-            context.font = '24px Arial';
+            context.font = '25px Comic Sans';
             context.textAlign = 'left';
             context.fillText('Score: ' + leftScore, 5, 24);
             context.textAlign = 'right';
@@ -221,6 +221,19 @@
             context.fillRect(0, 0, canvas.width, canvas.height);
         }
 
+        function gameLoop() {
+            erase();
+            movePaddle();
+            doAI();
+            moveBall();
+
+            checkPaddleCollision();
+            checkScore();
+            drawScores();
+            //draw stuff
+            for (let i = 0; i < drawables.length; i++) {
+                drawables[i].draw();
+            }
         //end game or keep going
         if (leftScore === 21 || rightScore === 21) {
             endGame();
