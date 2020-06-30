@@ -88,9 +88,10 @@
             }
             ball.sX *= -1;
         }
-        
+        function attachKeyListeners() {
             // Listen for keydown events
-            window.addEventListener('keydown', function(e) {
+            window.addEventListener('keydown', function (e) {
+                console.log("keydown", e);
                 if (e.keyCode === W) {
                     keys.W = true;
                 }
@@ -105,7 +106,8 @@
                 }
                 console.log(keys);
             });
-            window.addEventListener('keyup', function(e) {
+            window.addEventListener('keyup', function (e) {
+                console.log("keyup", e);
                 if (e.keyCode === W) {
                     keys.W = false;
                 }
@@ -120,7 +122,7 @@
                 }
                 console.log(keys);
             });
-
+        }
         // Create a rectangle object - for paddles, ball, etc
         function makeRect(x, y, width, height, speed, color) {
             if (!color)
