@@ -45,7 +45,7 @@ if(isset($_POST["updated"])){
                 $stmt = getDB()->prepare($query);
                 $result = $stmt->execute(array(
                     ":name" => $name,
-                    ":AccountBalance" => $AccountBalance,
+                    ":balance" => $AccountBalance,
                     ":id" => $balanceId
                 ));
                 $e = $stmt->errorInfo();
