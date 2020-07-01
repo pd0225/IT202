@@ -21,16 +21,22 @@ session_start();
             <a href="logout.php">Logout</a>
         </li>
         <li>
-            <a href="create.php">Create Bank Account</a>
+            <a href="#">Bank Account</a>
+            <ul>
+                <li>
+                    <a href="create.php">Create Bank Account</a>
+                </li>
+                <li>
+                    <a href="delete.php">Delete Bank Account</a>
+                </li>
+                <li>
+                    <a href="edit.php">Update Bank Account</a>
+                </li>
+                <li>
+                    <a href="search.php">Search</a>
+                </li>
+            </ul>
         </li>
-        <li>
-            <a href="delete.php">Delete Bank Account</a>
-        </li>
-        <li>
-            <a href="edit.php">Update Bank Account</a>
-        </li>
-        <li>
-            <a href="search.php">Search</a>
-        </li>
+
     </ul>
 </nav>
