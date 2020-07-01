@@ -4,6 +4,7 @@ include("header.php");
 <h2>Update Bank Account</h2>
 <?php
 $accountId = -1;
+$AccountBalance = -1;
 if(isset($_GET["accountId"]) && !empty($_GET["accountId"])){
     $accountId = $_GET["accountId"];
 }
