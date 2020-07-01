@@ -38,7 +38,7 @@ if(isset($_POST["created"])) {
             $stmt = getDB()->prepare($query);
             $result = $stmt->execute(array(
                 ":name" => $name,
-                ":balance" => $AccountBalance
+                ":AccountBalance" => $AccountBalance
             ));
             $e = $stmt->errorInfo();
             if ($e[0] != "00000") {
