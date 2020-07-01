@@ -1,4 +1,7 @@
 <?php
+include("header.php");
+?>
+<?php
 require("common.inc.php");
 $query = file_get_contents(__DIR__ . "/queries/select_all_table_accounts.sql");
 if(isset($query) && !empty($query)){

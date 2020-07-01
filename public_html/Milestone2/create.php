@@ -6,7 +6,7 @@ include("header.php");
 ?>
 <h2>Create Bank Account</h2>
 <form method="POST" onsubmit="return validate(this);">
-    <label for="account">Account Name
+    <label for="name">Account Name
         <input type="text" id="account" name="name" required />
     </label>
     <label for="b">Account Balance
