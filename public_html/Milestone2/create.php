@@ -5,58 +5,50 @@ include("header.php");
 <script src="js/script.js"></script>
 <!-- note although <script> tag "can" be self terminating some browsers require the
 full closing tag-->
-<form method="POST" onsubmit="return validate(this);">
-    <label for="name">Account Name
-        <input type="text" id="account" name="name" required />
+<form method="POST">
+    <label for="account">Account Name
+        <input type="text" id="account" name="name" />
     </label>
-    <label for="b">Account Balance
-        <input type="number" id="b" name="AccountBalance" required min="0" />
+    <label for="b">Balance
+        <input type="number" id="b" name="balance" />
     </label>
     <input type="submit" name="created" value="Create Account"/>
 </form>
+
 <?php
-if(isset($_POST["created"])) {
-    $name = "";
-    $AccountBalance = -1;
-    if(isset($_POST["name"]) && !empty($_POST["name"])){
-        $name = $_POST["name"];
-    }
-    if(isset($_POST["AccountBalance"]) && !empty($_POST["AccountBalance"])){
-        if(is_numeric($_POST["AccountBalance"])){
-            $AccountBalance = (int)$_POST["AccountBalance"];
-        }
-    }
-    //If name or balance is invalid, don't do the DB part
-    if(empty($name) || $AccountBalance < 0 ){
-        echo "Name must not be empty and account balance must be greater than or equal to 0";
-        die();//terminates the rest of the script
-    }
-    try {
-        require("common.inc.php");
-        $query = file_get_contents(__DIR__ . "/queries/insert_table_accounts.sql");
-        if(isset($query) && !empty($query)) {
-            $stmt = getDB()->prepare($query);
+if(isset($_POST["created"])){
+    $name = $_POST["name"];
+    $balance = $_POST["balance"];
+    if(!empty($name) && !empty($balance)){
+        require("config.php");
+        $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
+        try{
+            $db = new PDO($connection_string, $dbuser, $dbpass);
+            $stmt = $db->prepare("INSERT INTO Accounts (name, balance) VALUES (:name, :balance)");
             $result = $stmt->execute(array(
                 ":name" => $name,
-                ":balance" => $AccountBalance
+                ":balance" => $balance
             ));
             $e = $stmt->errorInfo();
-            if ($e[0] != "00000") {
+            if($e[0] != "00000"){
                 echo var_export($e, true);
-            } else {
-                if ($result) {
-                    echo "Successfully inserted new account: " . $name;
-                } else {
-                    echo "Error inserting record";
+            }
+            else{
+                echo var_export($result, true);
+                if ($result){
+                    echo "Successfully created new account: " . $name;
+                }
+                else{
+                    echo "Error creating account";
                 }
             }
         }
-        else{
-            echo "Failed to find insert_table_accounts.sql file";
+        catch (Exception $e){
+            echo $e->getMessage();
         }
     }
-    catch (Exception $e){
-        echo $e->getMessage();
+    else{
+        echo "Name and balance must not be empty.";
     }
 }
-?>
+?> 
