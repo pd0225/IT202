@@ -1,10 +1,10 @@
-<script src="js/script.js"></script>
-<!-- note although <script> tag "can" be self terminating some browsers require the
-full closing tag-->
 <?php
 include("header.php");
 ?>
-<h2>Create Bank Account</h2>
+    <h2>Create Bank Account</h2>
+<script src="js/script.js"></script>
+<!-- note although <script> tag "can" be self terminating some browsers require the
+full closing tag-->
 <form method="POST" onsubmit="return validate(this);">
     <label for="name">Account Name
         <input type="text" id="account" name="name" required />
@@ -49,22 +49,14 @@ if(isset($_POST["created"])) {
                 } else {
                     echo "Error inserting record";
                 }
-                if ($result){
-                    echo "Success";
-                }else{
-                    echo "no";
-                }
             }
         }
         else{
-            echo "Failed to find Insert_table_Accounts.sql file";
+            echo "Failed to find insert_table_accounts.sql file";
         }
     }
     catch (Exception $e){
         echo $e->getMessage();
     }
 }
-ini_set('display_errors',1);
-ini_set('display_startup_errors',1);
-error_reporting(E_ALL);
 ?>

@@ -4,27 +4,12 @@ include("header.php");
 <h2>Update Bank Account</h2>
 <?php
 $accountId = -1;
-$AccountBalance = -1;
 if(isset($_GET["accountId"]) && !empty($_GET["accountId"])){
     $accountId = $_GET["accountId"];
 }
 $result = array();
 require("common.inc.php");
 ?>
-<script src="js/script.js"></script>
-<!-- note although <script> tag "can" be self terminating some browsers require the
-full closing tag-->
-<form method="POST"onsubmit="return validate(this);">
-    <label for="name">Account Name
-        <!-- since the last assignment we added a required attribute to the form elements-->
-        <input type="text" id="account" name="name" value="<?php echo get($result, "name");?>" required />
-    </label>
-    <label for="b">Account Balance
-        <!-- We also added a minimum value for our number field-->
-        <input type="number" id="b" name="AccountBalance" value="<?php echo get($result, "AccountBalance");?>" required min="0"/>
-    </label>
-    <input type="submit" name="updated" value="Update Account"/>
-</form>
 <?php
 if(isset($_POST["updated"])){
     $name = "";
@@ -40,7 +25,7 @@ if(isset($_POST["updated"])){
     if(!empty($name) && $AccountBalance > -1){
         try{
             $query = NULL;
-            echo "[AccountBalance" . $AccountBalance . "]";
+            echo "[Account Balance" . $AccountBalance . "]";
             $query = file_get_contents(__DIR__ . "/queries/update_table_accounts.sql");
             if(isset($query) && !empty($query)) {
                 $stmt = getDB()->prepare($query);
@@ -54,7 +39,7 @@ if(isset($_POST["updated"])){
                     echo var_export($e, true);
                 } else {
                     if ($result) {
-                        echo "Successfully updated thing: " . $name;
+                        echo "Successfully updated account: " . $name;
                     } else {
                         echo "Error updating record";
                     }
@@ -98,3 +83,17 @@ else{
     echo "No accountId provided in url, don't forget this or sample won't work.";
 }
 ?>
+<script src="js/script.js"></script>
+<!-- note although <script> tag "can" be self terminating some browsers require the
+full closing tag-->
+<form method="POST"onsubmit="return validate(this);">
+    <label for="name">Account Name
+        <!-- since the last assignment we added a required attribute to the form elements-->
+        <input type="text" id="account" name="name" value="<?php echo get($result, "name");?>" required />
+    </label>
+    <label for="b">Account Balance
+        <!-- We also added a minimum value for our number field-->
+        <input type="number" id="b" name="AccountBalance" value="<?php echo get($result, "AccountBalance");?>" required min="0"/>
+    </label>
+    <input type="submit" name="updated" value="Update Account"/>
+</form>
