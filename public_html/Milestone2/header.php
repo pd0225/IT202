@@ -21,5 +21,17 @@ session_start();
         <li>
             <a href="logout.php">Logout</a>
         </li>
+        <li>
+            <a href="create.php">Create Bank Account</a>
+        </li>
+        <li>
+            <a href="delete.php">Delete Bank Account</a>
+        </li>
+        <li>
+            <a href="edit.php">Update Bank Account</a>
+        </li>
+        <li>
+            <a href="search.php">Search</a>
+        </li>
     </ul>
 </nav>

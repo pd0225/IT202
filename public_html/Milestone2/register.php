@@ -1,5 +1,5 @@
 <?php include("header.php");?>
-<h3>Register</h3>
+<h2>Register</h2>
 <form method="POST">
 	<label for="email">Email
 	<input type="email" id="email" name="email" autocomplete="off" />
