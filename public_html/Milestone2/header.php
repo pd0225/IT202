@@ -23,8 +23,9 @@ session_start();
         </li>
     </ul>
     <ul>
-        <a href="#">Bank Account</a>
-
+        <a href="#" style="color: darkslategrey; font-weight: bold;">Bank Account: </a>
+    </ul>
+    <ul>
         <li>
             <a href="create.php">Create Bank Account</a>
         </li>
@@ -37,7 +38,7 @@ session_start();
         <li>
             <a href="search.php">Search</a>
         </li>
-        
+
     </ul>
 
 </nav>
