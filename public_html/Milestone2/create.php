@@ -49,6 +49,11 @@ if(isset($_POST["created"])) {
                 } else {
                     echo "Error inserting record";
                 }
+                if ($result){
+                    echo "Success";
+                }else{
+                    echo "no";
+                }
             }
         }
         else{
