@@ -9,15 +9,15 @@ include("header.php");
     <label for="account">Account Name
         <input type="text" id="account" name="name" required />
     </label>
-    <label for="b">Balance
-        <input type="number" id="b" name="balance" required min="0" />
+    <label for="b">Account Balance
+        <input type="number" id="b" name="AccountBalance" required min="0" />
     </label>
     <input type="submit" name="created" value="Create Account"/>
 </form>
 <?php
 if(isset($_POST["created"])) {
     $name = "";
-    $balance = -1;
+    $AccountBalance = -1;
     if(isset($_POST["name"]) && !empty($_POST["name"])){
         $name = $_POST["name"];
     }
@@ -38,7 +38,7 @@ if(isset($_POST["created"])) {
             $stmt = getDB()->prepare($query);
             $result = $stmt->execute(array(
                 ":name" => $name,
-                ":balance" => $balance
+                ":balance" => $AccountBalance
             ));
             $e = $stmt->errorInfo();
             if ($e[0] != "00000") {

@@ -18,9 +18,9 @@ full closing tag-->
         <!-- since the last assignment we added a required attribute to the form elements-->
         <input type="text" id="account" name="name" value="<?php echo get($result, "name");?>" required />
     </label>
-    <label for="b">Balance
+    <label for="b">Account Balance
         <!-- We also added a minimum value for our number field-->
-        <input type="number" id="b" name="balance" value="<?php echo get($result, "AccountBalance");?>" required min="0"/>
+        <input type="number" id="b" name="AccountBalance" value="<?php echo get($result, "AccountBalance");?>" required min="0"/>
     </label>
     <input type="submit" name="updated" value="Update Account"/>
 </form>
