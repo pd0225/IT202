@@ -1,6 +1,3 @@
-<script src="js/script.js"></script>
-<!-- note although <script> tag "can" be self terminating some browsers require the
-full closing tag-->
 <form method="POST" onsubmit="return validate(this);">
     <label for="account">Account Name
         <input type="text" id="account" name="name" required />
