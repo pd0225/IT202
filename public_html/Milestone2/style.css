@@ -1,11 +1,11 @@
 body{
-    background-color: aliceblue;
+    background-color: darkseagreen;
 }
 nav {
     clear: left;
     margin: 0px;
     padding: 0;
-    border-bottom: 3px solid royalblue;
+    border-bottom: 3px solid darkslategrey;
     display: block;
     text-align: center;
 }
@@ -24,7 +24,7 @@ input {
     background-color: bisque;
 }
 label {
-    border: 1px solid skyblue;
+    border: 1px solid lightgreen;
 }
 form {
     width:90%;
@@ -41,5 +41,5 @@ h3 {
 h1{
     text-align: center;
     font-family: monospace;
-    color: darkslateblue;
+    color: darkslategrey;
 }
