@@ -6,27 +6,37 @@
 <?php
 session_start();
 ?>
-<div class="navbar">
-    <a href="home.php">Home</a>
-    <a href="login.php">Login</a>
-    <a href="register.php">Register</a>
-    <a href="logout.php">Logout</a>
-    <div class="dropdown">
-        <button class="dropbtn">Bank Account
-            <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-content">
-            <a href="create.php">Create Bank Account</a>
-
-            <a href="delete.php">Delete Bank Account</a>
-
-            <a href="edit.php">Update Bank Account</a>
-
-            <a href="search.php">Search</a>
-        </div>
-    </div>
-</div>
-
+<nav>
+    <ul>
+        <li>
+            <a href="home.php">Home</a>
+        </li>
+        <li>
+            <a href="login.php">Login</a>
+        </li>
+        <li>
+            <a href="register.php">Register</a>
+        </li>
+        <li>
+            <a href="logout.php">Logout</a>
+        </li>
+        <li>
+            <a href="#">Bank Account</a>
+            <ul>
+                <li>
+                    <a href="create.php">Create Bank Account</a>
+                </li>
+                <li>
+                    <a href="delete.php">Delete Bank Account</a>
+                </li>
+                <li>
+                    <a href="edit.php">Update Bank Account</a>
+                </li>
+                <li>
+                    <a href="search.php">Search</a>
+                </li>
+            </ul>
+        </li>
 
     </ul>
 </nav>
