@@ -1,6 +1,10 @@
 <script src="js/script.js"></script>
 <!-- note although <script> tag "can" be self terminating some browsers require the
 full closing tag-->
+<?php
+include("header.php");
+?>
+<h2>Create Bank Account</h2>
 <form method="POST" onsubmit="return validate(this);">
     <label for="account">Account Name
         <input type="text" id="account" name="name" required />

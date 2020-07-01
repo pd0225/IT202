@@ -1,4 +1,8 @@
 <?php
+include("header.php");
+?>
+    <h2>Delete Account</h2>
+<?php
 if (isset($_GET["accountId"]) && !empty($_GET["accountId"])){
     if(is_numeric($_GET["accountId"])){
         $accountId = (int)$_GET["accountId"];
