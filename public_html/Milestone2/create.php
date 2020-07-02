@@ -51,4 +51,4 @@ if(isset($_POST["created"])){
         echo "Name and balance must not be empty.";
     }
 }
-?> 
+?>
