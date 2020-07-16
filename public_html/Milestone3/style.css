@@ -1,0 +1,45 @@
+body{
+    background-color: darkseagreen;
+}
+nav {
+    clear: left;
+    margin: 0px;
+    padding: 0;
+    border-bottom: 3px solid darkslategrey;
+    display: block;
+    text-align: center;
+}
+nav ul {
+    margin-left: 0;
+    margin-bottom: .5em;
+    list-style: none;
+    padding: .5em 2em 0 0;
+}
+nav li{
+    display: inline;
+    padding: 8px;
+    background-color: beige;
+}
+input {
+    background-color: bisque;
+}
+label {
+    border: 1px solid lightgreen;
+}
+form {
+    width:90%;
+    margin-left: 0;
+    margin-right: auto;
+    margin-top: 10px;
+    text-align: center;
+}
+
+h3 {
+    font-family: cursive;
+    text-align: center;
+}
+h1{
+    text-align: center;
+    font-family: monospace;
+    color: darkslategrey;
+}

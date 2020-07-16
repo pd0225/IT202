@@ -29,7 +29,7 @@ if(isset($query) && !empty($query)){
             <li>
                 <?php echo get($row, "name")?>
                 <?php echo get($row, "AccountBalance");?>
-                <a href="delete.php?accountId=<?php echo get($row, "id");?>">Delete</a>
+                <a href="delete.php?accountId=<?php echo get($row, "id"); ?>">Delete</a>
             </li>
         <?php endforeach;?>
     </ul>
