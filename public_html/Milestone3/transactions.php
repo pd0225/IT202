@@ -1,4 +1,8 @@
 <?php
+include("header.php");
+?>
+    <h2>Make a Transaction</h2>
+<?php
 ini_set('display_errors',1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -43,7 +47,7 @@ function do_bank_action($account1, $account2, $amountChange, $acc_type){
         <input type="hidden" name="type" value="<?php echo $_GET['acc_type'];?>"/>
 
         <!--Based on sample acc_type change the submit button display-->
-        <input type="submit" value="Move Money"/>
+        <input type="submit" value="Transfer Money"/>
     </form>
 
 <?php
