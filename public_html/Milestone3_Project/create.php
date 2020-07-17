@@ -9,6 +9,9 @@ full closing tag-->
     <label for="account">Account Name
         <input type="text" id="account" name="name" />
     </label>
+    <label for="acc_type">Account Type
+        <input type="text" id="acc_type" name="acc_type" />
+    </label>
     <label for="b">Balance
         <input type="number" id="b" name="balance" />
     </label>
@@ -16,102 +19,104 @@ full closing tag-->
 </form>
 
 <?php
+require ("common.inc.php");
 if(isset($_POST["created"])){
     $name = $_POST["name"];
+    $acc_type = $_POST["acc_type"];
     $balance = $_POST["balance"];
-    if(isset($_POST["name"]) && !empty($_POST["name"])){
-        $name = $_POST["name"];
-    }
-    if(isset($_POST["balance"]) && !empty($_POST["balance"])){
-        if(is_numeric($_POST["balance"])){
-            $balance = (int)$_POST["balance"];
-        }
-    }
-    //If name or balance is invalid, don't do the DB part
-    if(empty($name) || $balance < 0 ){
-        echo "Account name must not be empty and account balance must be greater than or equal to 0";
-        die();//terminates the rest of the script
-    }
-    try {
-        require("common.inc.php");
-//find the max id in the table
-        $query = "SELECT MAX(id) as max from Accounts";
-        echo "<br>$query<br>";
-        $stmt = getDB()->prepare($query);
-        $stmt->execute();
-        echo var_export($stmt->errorInfo(), true);
-        $r = $stmt->fetch(PDO::FETCH_ASSOC);
-        $max = (int)$r["max"];
-        $max += 1;
-        $acc_num = str_pad($str,12,"0",STR_PAD_LEFT);
-//insert the new account number and associate it with the logged in user
-        $query = "INSERT INTO Accounts(acc_num, user_id, name) VALUES(:an, :id, :name)";
-        echo "<br>$query<br>";
-        $stmt = getDB()->prepare($query);
-        $stmt->execute(array(":an"=>$acc_num, ":id"=>$_SESSION["user"]["id"], ":name"=>$name));
-        echo var_export($stmt->errorInfo(), true);
-        $worldAcct = 000000000000;
-        $query = "Select id from Accounts where acc_num = '000000000000'"; //TODO fetch world account from DB so we can get the ID, I defaulted to -1 so you implement this portion. Do not hard code the value here.
-        echo "<br>$query<br>";
-        $stmt = getDB()->prepare($query);
-        $stmt->execute();
-        echo var_export($stmt->errorInfo(), true);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $worldAcct = $result["id"];
-//end fetch world account id
-
-        $query = "INSERT INTO Transactions(acc_src_id, acc_dest_id,`amount`, `acc_type`) VALUES (:src, :dest, :change, :acc_type)";
-        echo "<br>$query<br>";
-
-
-        if(isset($query) && !empty($query)) {
-            $stmt = getDB()->prepare($query);
-//part 1
-            $balance *= -1;//flip
-            $result = $stmt->execute
-            (array(
-                    ":src" => $worldAcct,
-                    ":dest" => $max, //<- should really get the last insert ID from the account query, but $max "should" be accurate
-                    ":change"=>$balance,
-                    ":acc_type"=>"deposit" //or it can be "create" or "new" if you want to distinguish between deposit and opening an account
-
-                )
-            );
-            echo var_export($stmt->errorInfo(), true);
-            echo "<br>$query<br>";
-            //part 2
-            $balance *= -1;//flip
+    if(!empty($name) && !empty($acc_type)&& !empty($balance)){
+        require("config.php");
+        $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
+        try{
+            $db = new PDO($connection_string, $dbuser, $dbpass);
+            try{
+                $stmt1 = $db->prepare("SELECT id FROM Users where email = :email LIMIT 1");
+                $stmt1->execute(array(
+                    ":email" => $email
+                ));
+                $res = $stmt1->fetch(PDO::FETCH_ASSOC);
+                $user_id=$res["id"];
+            }catch (Exception $e1){
+                echo $e1->getMessage();
+            }
+            $stmt = $db->prepare("INSERT INTO Accounts (Name, acc_type, User_id) VALUES (:name, :acc_type,:user)");
             $result = $stmt->execute(array(
-                ":src" => $max,
-                ":dest" => $worldAcct, //<- should really get the last insert ID from the account query, but $max "should" be accurate
-                ":change"=>$balance,
-                ":acc_type"=>"deposit" //or it can be "create" or "new" if you want to distinguish between deposit and opening an account
+                ":name" => $name,
+                ":acc_type"=> $acc_type,
+                ":user"=>$user_id
             ));
-            echo var_export($stmt->errorInfo(), true);
-//get new balance
-            $query = "SELECT SUM(`amount`) as balance from Transactions where acc_src_id = :id";
-            echo "<br>$query<br>";
-            $stmt = getDB()->prepare($query);
-            $stmt->execute([":id"=>$max]);
-            echo var_export($stmt->errorInfo(), true);
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
-//TODO, should properly check to see if we have data and all
-            $sum = (int)$result["balance"];
-//update balance
-            $query = "UPDATE Accounts set balance = :bal where id = :id";
-            echo "<br>$query<br>";
-            $stmt = getDB()->prepare($query);
-            $stmt->execute([":bal"=>$sum, ":id"=>$max]);
-            echo var_export($stmt->errorInfo(), true);
+            $e = $stmt->errorInfo();
+            if($e[0] != "00000"){
+                echo var_export($e, true);
+            }
+            $stmt1 = $db->prepare("SELECT max(id) as id FROM Accounts where Name = :name and acc_type=:acc_type and User_id=:user");
+            $stmt1->execute(array(
+                ":name" => $name,
+                ":acc_type"=> $acc_type,
+                ":user"=>$user_id
+            ));
+            $res = $stmt1->fetch(PDO::FETCH_ASSOC);
+            $acc_id=$res["id"];
+            $acc_num=str_pad($acc_id, 12, "0", STR_PAD_LEFT);
+            //echo $acc_id;
+            //echo " ".$account_num."<br>";
+            $stmt = $db->prepare("update Accounts set acc_num=:acc_num where id=:idnum");
+            $result = $stmt->execute(array(
+                ":acc_num" => $acc_num,
+                ":idnum"=>$acc_id
+            ));
+            $stmt = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dst_id,acc_type,amount,exp_total) VALUES (:acc_num,:accnum1, :acc_type,:balance,:exp_balance)");
+            $result = $stmt->execute(array(
+                ":acc_num" => $acc_num,
+                ":accnum1" => "000000000000",
+                ":acc_type" => "Deposit",
+                ":balance" => $balance,
+                ":exp_balance" => $balance
+            ));
+            $e = $stmt->errorInfo();
+            if($e[0] != "00000"){
+                var_dump($e);
+                echo "setting eee ".$e."<br>";
+            }
+            $balance =$balance * -1;
+            //echo $balance;
 
+            $stmt2 = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dst_id,type,amount,exp_total) VALUES (:acc1,:acc, :acc_type,:balance,:exp_balance)");
+            $result1 = $stmt2->execute(array(
+                ":acc1" => "000000000000",
+                ":acc" => $account_num,
+                ":acc_type" => "WithDraw",
+                ":balance" => $balance,
+                ":exp_balance" => $balance
+            ));
+            $e = $stmt2->errorInfo();
+            if($e[0] != "00000"){
+                //var_dump($e);
+                //$stmt2->debugDumpParams();
+                //echo "setting AAAAAeee ".$e."<br>";
+            }
+            $stmt = $db->prepare("update Accounts set Balance= (SELECT sum(Amount) FROM Transactions WHERE acc_src_id=:acc_num) where acc_num=:acc_num");
+            $result = $stmt->execute(array(
+                ":acc_num" => $acc_num
+            ));
+            if ($result){
+                echo "Successfully Created new Account for : " . $name;
+            }
+            else{
+                echo "Error inserting record";
+            }
         }
-        else{
-            echo "Failed to find Insert_table_Accounts.sql file";
+        catch (Exception $e){
+
+            echo $e->getMessage();
         }
     }
-    catch (Exception $e){
-        echo $e->getMessage();
 
+    else{
+
+        echo "<div>Account Name, Account Type and Account Balance must not be empty.<div>";
     }
 }
+$stmt = $db->prepare("SELECT * FROM Accounts");
+$stmt->execute();
 ?>

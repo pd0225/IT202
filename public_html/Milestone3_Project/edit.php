@@ -6,7 +6,7 @@ include("header.php");
 require("config.php");
 $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
 $db = new PDO($connection_string, $dbuser, $dbpass);
-$accountId = -1;
+$acc_num = -1;
 $result = array();
 function get($arr, $key){
     if(isset($arr[$key])){
@@ -14,20 +14,17 @@ function get($arr, $key){
     }
     return "";
 }
-if(isset($_GET["accountId"])){
-    $accountId = $_GET["accountId"];
-    $stmt = $db->prepare("SELECT * FROM Accounts where id = :id");
-    $stmt->execute([":id"=>$accountId]);
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-}
-else{
-    echo "No accountId provided in url.";
-}
 ?>
 
 <form method="POST">
-    <label for="account">Account Name
-        <input type="text" id="account" name="name" value="<?php echo get($result, "name");?>" />
+    <label for="name">Account Name
+        <input type="text" id="name" name="name" value="<?php echo get($result, "name");?>" />
+    </label>
+    <label for="acc_num">Account Number
+        <input type="number" id="acc_num" name="acc_num" value="<?php echo get($result, "acc_num");?>" />
+    </label>
+    <label for="acc_type">Account Type
+        <input type="text" id="acc_type" name="acc_type" value="<?php echo get($result, "acc_type");?>" />
     </label>
     <label for="b">Balance
         <input type="number" id="b" name="balance" value="<?php echo get($result, "balance");?>" />
@@ -38,15 +35,14 @@ else{
 <?php
 if(isset($_POST["updated"])){
     $name = $_POST["name"];
-    $balance = $_POST["balance"];
-    if(!empty($name) && !empty($balance)){
+    $acc_num = $_POST["acc_num"];
+    $acc_type = $_POST["acc_type"];
+    $balance = $_POST["Balance"];
+    if(!empty($name) && !empty($acc_num)&& !empty($acc_type)&& !empty($balance)){
         try{
-            $stmt = $db->prepare("UPDATE Accounts set name = :name, balance=:balance where id=:id");
-            $result = $stmt->execute(array(
-                ":name" => $name,
-                ":balance" => $balance,
-                ":id" => $accountId
-            ));
+            $stmt = $db->prepare("UPDATE Accounts set Name='$name', Account_type='$acc_type', Balance=$balance where Account_Number=$acc_num");
+            $result = $stmt->execute();
+            var_dump($stmt);
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
                 echo var_export($e, true);
@@ -54,10 +50,10 @@ if(isset($_POST["updated"])){
             else{
                 echo var_export($result, true);
                 if ($result){
-                    echo "Successfully updated account: " . $name;
+                    echo "Successfully inserted or updated account: " . $name;
                 }
                 else{
-                    echo "Error updating account";
+                    echo "Error inserting or updating record";
                 }
             }
         }
@@ -66,7 +62,7 @@ if(isset($_POST["updated"])){
         }
     }
     else{
-        echo "Name and balance must not be empty.";
+        echo "Account Name and Account Balance must not be empty.";
     }
 }
 ?>

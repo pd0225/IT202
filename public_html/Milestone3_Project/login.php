@@ -53,7 +53,7 @@ if(isset($_POST["login"])){
                             ));
                             $res = $query->fetchAll();
                             $_SESSION["user"]["accounts"]=$res;
-                            
+
 							echo var_export($_SESSION, true);
 							header("Location: home.php");
 						}
