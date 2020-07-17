@@ -48,11 +48,11 @@ if(isset($_POST["Withdraw"])){
             }
             $balance =$balance * -1;
             echo $balance;
-            $stmt2 = $db->prepare("INSERT INTO Transactions (act_src_id, act_dest_id,Type,Amount,expected_total) VALUES (:acc1,:acc, :type,:balance,:exp_balance)");
+            $stmt2 = $db->prepare("INSERT INTO Transactions (act_src_id, act_dest_id,acctype,Amount,expected_total) VALUES (:acc1,:acc, :acctype,:balance,:exp_balance)");
             $result1 = $stmt2->execute(array(
                 ":acc1" => "000000000000",
                 ":acc" => $name,
-                ":type" => "Deposit",
+                ":acctype" => "Deposit",
                 ":balance" => $balance,
                 ":exp_balance" => $balance
             ));

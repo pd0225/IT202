@@ -9,8 +9,8 @@ full closing tag-->
     <label for="account">Account Name
         <input type="text" id="account" name="name" />
     </label>
-    <label for="acc_type">Account Type
-        <input type="text" id="acc_type" name="acc_type" />
+    <label for="acctype">Account Type
+        <input type="text" id="acctype" name="acctype" />
     </label>
     <label for="b">Balance
         <input type="number" id="b" name="balance" />
@@ -22,9 +22,9 @@ full closing tag-->
 require ("common.inc.php");
 if(isset($_POST["created"])){
     $name = $_POST["name"];
-    $acc_type = $_POST["acc_type"];
+    $acctype = $_POST["acctype"];
     $balance = $_POST["balance"];
-    if(!empty($name) && !empty($acc_type)&& !empty($balance)){
+    if(!empty($name) && !empty($acctype)&& !empty($balance)){
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
@@ -39,20 +39,20 @@ if(isset($_POST["created"])){
             }catch (Exception $e1){
                 echo $e1->getMessage();
             }
-            $stmt = $db->prepare("INSERT INTO Accounts (Name, acc_type, User_id) VALUES (:name, :acc_type,:user)");
+            $stmt = $db->prepare("INSERT INTO Accounts (Name, acctype, User_id) VALUES (:name, :acctype,:user)");
             $result = $stmt->execute(array(
                 ":name" => $name,
-                ":acc_type"=> $acc_type,
+                ":acctype"=> $acctype,
                 ":user"=>$user_id
             ));
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
                 echo var_export($e, true);
             }
-            $stmt1 = $db->prepare("SELECT max(id) as id FROM Accounts where Name = :name and acc_type=:acc_type and User_id=:user");
+            $stmt1 = $db->prepare("SELECT max(id) as id FROM Accounts where Name = :name and acctype=:acctype and User_id=:user");
             $stmt1->execute(array(
                 ":name" => $name,
-                ":acc_type"=> $acc_type,
+                ":acctype"=> $acctype,
                 ":user"=>$user_id
             ));
             $res = $stmt1->fetch(PDO::FETCH_ASSOC);
@@ -65,11 +65,11 @@ if(isset($_POST["created"])){
                 ":acc_num" => $acc_num,
                 ":idnum"=>$acc_id
             ));
-            $stmt = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dst_id,acc_type,amount,exp_total) VALUES (:acc_num,:accnum1, :acc_type,:balance,:exp_balance)");
+            $stmt = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dst_id,acctype,amount,exp_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
             $result = $stmt->execute(array(
                 ":acc_num" => $acc_num,
                 ":accnum1" => "000000000000",
-                ":acc_type" => "Deposit",
+                ":acctype" => "Deposit",
                 ":balance" => $balance,
                 ":exp_balance" => $balance
             ));
@@ -81,11 +81,11 @@ if(isset($_POST["created"])){
             $balance =$balance * -1;
             //echo $balance;
 
-            $stmt2 = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dst_id,type,amount,exp_total) VALUES (:acc1,:acc, :acc_type,:balance,:exp_balance)");
+            $stmt2 = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dst_id,acctype,amount,exp_total) VALUES (:acc1,:acc, :acctype,:balance,:exp_balance)");
             $result1 = $stmt2->execute(array(
                 ":acc1" => "000000000000",
                 ":acc" => $account_num,
-                ":acc_type" => "WithDraw",
+                ":acctype" => "WithDraw",
                 ":balance" => $balance,
                 ":exp_balance" => $balance
             ));

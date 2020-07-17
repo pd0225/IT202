@@ -62,11 +62,11 @@ if(isset($_POST["Transfer"])){
             $db = new PDO($connection_string, $dbuser, $dbpass);
             //echo "before major if 3d<br>";
 
-            $stmt = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,acc_type,amount,exp_total) VALUES (:acc_num,:accnum1, :acc_type,:balance,:exp_balance)");
+            $stmt = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,acctype,amount,exp_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
             $result = $stmt->execute(array(
                 ":acc_num" => $name1,
                 ":accnum1" => $name,
-                ":acc_type" => "Deposit",
+                ":acctype" => "Deposit",
                 ":balance" => $balance,
                 ":exp_balance" => $balance
             ));
@@ -79,11 +79,11 @@ if(isset($_POST["Transfer"])){
             $balance =$balance * -1;
             //echo $balance;
 
-            $stmt2 = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,acc_type,amount,expected_total) VALUES (:acc1,:acc, :acc_type,:balance,:exp_balance)");
+            $stmt2 = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,acctype,amount,expected_total) VALUES (:acc1,:acc, :acctype,:balance,:exp_balance)");
             $result1 = $stmt2->execute(array(
                 ":acc1" => $name,
                 ":acc" => $name1,
-                ":acc_type" => "Withdraw",
+                ":acctype" => "Withdraw",
                 ":balance" => $balance,
                 ":exp_balance" => $balance
             ));
