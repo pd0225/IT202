@@ -45,6 +45,15 @@ if(isset($_POST["login"])){
 								"first_name"=>$result["first_name"],
 								"last_name"=>$result["last_name"]
 							);
+
+                            $query=$db->prepare("SELECT b.acc_num FROM Accounts b, Users a where a.id=b.User_id and a.email=:email");
+
+                            $query->execute(array(
+                                ":email" => $email
+                            ));
+                            $res = $query->fetchAll();
+                            $_SESSION["user"]["accounts"]=$res;
+                            
 							echo var_export($_SESSION, true);
 							header("Location: home.php");
 						}
