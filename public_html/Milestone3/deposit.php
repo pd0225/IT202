@@ -32,11 +32,11 @@ if(isset($_POST["Deposit"])){
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Transactions (act_src_id, act_dest_id,type,amount,expected_total) VALUES (:accnum,:accnum1, :type,:balance,:exp_balance)");
+            $stmt = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,acc_type,amount,expected_total) VALUES (:acc_num,:accnum1, :acc_type,:balance,:exp_balance)");
             $result = $stmt->execute(array(
-                ":accnum" => $name,
+                ":acc_num" => $name,
                 ":accnum1" => "000000000000",
-                ":type" => "Deposit",
+                ":acc_type" => "Deposit",
                 ":balance" => $balance,
                 ":exp_balance" => $balance
             ));
@@ -47,11 +47,11 @@ if(isset($_POST["Deposit"])){
             }
             $balance =$balance * -1;
             echo $balance;
-            $stmt2 = $db->prepare("INSERT INTO Transactions (act_src_id, act_dest_id,type,amount,expected_total) VALUES (:acc1,:acc, :type,:balance,:exp_balance)");
+            $stmt2 = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,acc_type,amount,expected_total) VALUES (:acc1,:acc, :acc_type,:balance,:exp_balance)");
             $result1 = $stmt2->execute(array(
                 ":acc1" => "000000000000",
                 ":acc" => $name,
-                ":type" => "Withdraw",
+                ":acc_type" => "Withdraw",
                 ":balance" => $balance,
                 ":exp_balance" => $balance
             ));
@@ -60,9 +60,9 @@ if(isset($_POST["Deposit"])){
                 var_dump($e);
                 $stmt2->debugDumpParams();
             }
-            $stmt = $db->prepare("update Accounts set Balance= (SELECT sum(Amount) FROM Transactions WHERE act_src_id=:accnum) where Account_Number=:accnum");
+            $stmt = $db->prepare("update Accounts set Balance= (SELECT sum(Amount) FROM Transactions WHERE acc_src_id=:acc_num) where Account_Number=:acc_num");
             $result = $stmt->execute(array(
-                ":accnum" => $name
+                ":acc_num" => $name
             ));
             if ($result){
                 echo "Successfully inserted new thing: " . $name;

@@ -62,11 +62,11 @@ if(isset($_POST["Transfer"])){
             $db = new PDO($connection_string, $dbuser, $dbpass);
             //echo "before major if 3d<br>";
 
-            $stmt = $db->prepare("INSERT INTO Transactions (act_src_id, acc_dest_id,type,amount,expected_total) VALUES (:accnum,:accnum1, :typ,:balance,:exp_balance)");
+            $stmt = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,acc_type,amount,exp_total) VALUES (:acc_num,:accnum1, :acc_type,:balance,:exp_balance)");
             $result = $stmt->execute(array(
-                ":accnum" => $name1,
+                ":acc_num" => $name1,
                 ":accnum1" => $name,
-                ":type" => "Deposit",
+                ":acc_type" => "Deposit",
                 ":balance" => $balance,
                 ":exp_balance" => $balance
             ));
@@ -79,11 +79,11 @@ if(isset($_POST["Transfer"])){
             $balance =$balance * -1;
             //echo $balance;
 
-            $stmt2 = $db->prepare("INSERT INTO Transactions (act_src_id, acc_dest_id,type,amount,expected_total) VALUES (:acc1,:acc, :type,:balance,:exp_balance)");
+            $stmt2 = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,acc_type,amount,expected_total) VALUES (:acc1,:acc, :acc_type,:balance,:exp_balance)");
             $result1 = $stmt2->execute(array(
                 ":acc1" => $name,
                 ":acc" => $name1,
-                ":type" => "Withdraw",
+                ":acc_type" => "Withdraw",
                 ":balance" => $balance,
                 ":exp_balance" => $balance
             ));
@@ -94,22 +94,14 @@ if(isset($_POST["Transfer"])){
                 echo "setting AAAAAeee ".$e."<br>";
                 //echo var_export($e, true);
             }
-            $stmt = $db->prepare("update Accounts set AccountBalance= (SELECT sum(Amount) FROM Transactions WHERE Acc_Src=:accnum) where Account_Number=:accnum");
+            $stmt = $db->prepare("update Accounts set AccountBalance= (SELECT sum(Amount) FROM Transactions WHERE acc_src_id=:acc_num) where acc_num=:acc_num");
             $result = $stmt->execute(array(
-                ":accnum" => $name
+                ":acc_num" => $name
             ));
-            //$stmt = $db->prepare("update Bank_Account set Balance= (SELECT sum(Amount) FROM Transactions WHERE Acc_Src=:accnum) where Account_Number=:accnum");
             $res = $stmt->execute(array(
-                ":accnum" => $name1
+                ":acc_num" => $name1
             ));
-            //$e = $stmt->errorInfo();
-            //if($e[0] != "00000"){
-            //  echo "setting eee <br>";
-            //echo var_export($e, true);
-            // }
-            //echo $acc_id;
-            //else{
-            //echo var_export($result, true);
+
             if ($result){
                 //if($res){
                 echo "Successfully transferred ".$balance." from account " . $name." to account ".$name1;

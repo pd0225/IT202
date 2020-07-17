@@ -43,15 +43,15 @@ if(isset($_POST["created"])){
         $r = $stmt->fetch(PDO::FETCH_ASSOC);
         $max = (int)$r["max"];
         $max += 1;
-        $account_number = str_pad($str,12,"0",STR_PAD_LEFT);
+        $acc_num = str_pad($str,12,"0",STR_PAD_LEFT);
 //insert the new account number and associate it with the logged in user
-        $query = "INSERT INTO Accounts(account_number, user_id, name) VALUES(:an, :id, :name)";
+        $query = "INSERT INTO Accounts(acc_num, user_id, name) VALUES(:an, :id, :name)";
         echo "<br>$query<br>";
         $stmt = getDB()->prepare($query);
-        $stmt->execute(array(":an"=>$account_number, ":id"=>$_SESSION["user"]["id"], ":name"=>$name));
+        $stmt->execute(array(":an"=>$acc_num, ":id"=>$_SESSION["user"]["id"], ":name"=>$name));
         echo var_export($stmt->errorInfo(), true);
         $worldAcct = 000000000000;
-        $query = "Select id from Accounts where account_number = '000000000000'"; //TODO fetch world account from DB so we can get the ID, I defaulted to -1 so you implement this portion. Do not hard code the value here.
+        $query = "Select id from Accounts where acc_num = '000000000000'"; //TODO fetch world account from DB so we can get the ID, I defaulted to -1 so you implement this portion. Do not hard code the value here.
         echo "<br>$query<br>";
         $stmt = getDB()->prepare($query);
         $stmt->execute();
@@ -60,7 +60,7 @@ if(isset($_POST["created"])){
         $worldAcct = $result["id"];
 //end fetch world account id
 
-        $query = "INSERT INTO Transactions(act_src_id, act_dest_id,`amount`, `type`) VALUES (:src, :dest, :change, :type)";
+        $query = "INSERT INTO Transactions(acc_src_id, acc_dest_id,`amount`, `acc_type`) VALUES (:src, :dest, :change, :acc_type)";
         echo "<br>$query<br>";
 
 
@@ -73,7 +73,7 @@ if(isset($_POST["created"])){
                     ":src" => $worldAcct,
                     ":dest" => $max, //<- should really get the last insert ID from the account query, but $max "should" be accurate
                     ":change"=>$balance,
-                    ":type"=>"deposit" //or it can be "create" or "new" if you want to distinguish between deposit and opening an account
+                    ":acc_type"=>"deposit" //or it can be "create" or "new" if you want to distinguish between deposit and opening an account
 
                 )
             );
@@ -85,11 +85,11 @@ if(isset($_POST["created"])){
                 ":src" => $max,
                 ":dest" => $worldAcct, //<- should really get the last insert ID from the account query, but $max "should" be accurate
                 ":change"=>$balance,
-                ":type"=>"deposit" //or it can be "create" or "new" if you want to distinguish between deposit and opening an account
+                ":acc_type"=>"deposit" //or it can be "create" or "new" if you want to distinguish between deposit and opening an account
             ));
             echo var_export($stmt->errorInfo(), true);
 //get new balance
-            $query = "SELECT SUM(`amount`) as balance from Transactions where act_src_id = :id";
+            $query = "SELECT SUM(`amount`) as balance from Transactions where acc_src_id = :id";
             echo "<br>$query<br>";
             $stmt = getDB()->prepare($query);
             $stmt->execute([":id"=>$max]);
