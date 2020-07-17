@@ -3,7 +3,7 @@ include("header.php");
 
 $email=$_SESSION["user"]["email"];
 $accounts=$_SESSION["user"]["accounts"];
-$new_arr = array_column($accounts,'Account_Number');
+$new_arr = array_column($accounts,'acc_num');
 //var_dump($new_arr);
 echo "Hello". $email;?>
     <form method="POST">

@@ -3,7 +3,7 @@ include("header.php");
 
 $email=$_SESSION["user"]["email"];
 $accounts=$_SESSION["user"]["accounts"];
-$new_arr = array_column($accounts,'Account_Number');
+$new_arr = array_column($accounts,'acc_num');
 echo "Hello". $email;?>
     <form method="POST">
         <label for="name">Account
@@ -33,9 +33,9 @@ if(isset($_POST["Withdraw"])){
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Transactions (act_src_id, act_dest_id,type,amount,expected_total) VALUES (:accnum,:accnum1, :type,:balance,:exp_balance)");
+            $stmt = $db->prepare("INSERT INTO Transactions (act_src_id, act_dest_id,type,amount,expected_total) VALUES (:acc_num,:accnum1, :type,:balance,:exp_balance)");
             $result = $stmt->execute(array(
-                ":accnum" => $name,
+                ":acc_num" => $name,
                 ":accnum1" => "000000000000",
                 ":type" => "Withdraw",
                 ":balance" => $balance,
@@ -61,9 +61,9 @@ if(isset($_POST["Withdraw"])){
                 var_dump($e);
                 $stmt2->debugDumpParams();
             }
-            $stmt = $db->prepare("update Accounts set Balance= (SELECT sum(Amount) FROM Transactions WHERE act_src_id=:accnum) where Account_Number=:accnum");
+            $stmt = $db->prepare("update Accounts set Balance= (SELECT sum(Amount) FROM Transactions WHERE act_src_id=:acc_num) where Account_Number=:acc_num");
             $result = $stmt->execute(array(
-                ":accnum" => $name
+                ":acc_num" => $name
             ));
             if ($result){
                 echo "Successfully inserted new thing: " . $name;
@@ -78,7 +78,7 @@ if(isset($_POST["Withdraw"])){
         }
     }
     else{
-        echo "<div>Account and Amount must not be empty.<div>";
+        echo "<div>Account and amount must not be empty.<div>";
     }
 }
 $stmt = $db->prepare("SELECT * FROM Accounts");
