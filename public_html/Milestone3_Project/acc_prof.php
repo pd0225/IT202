@@ -31,7 +31,7 @@ if($e[0] != "00000"){
 $type=$result[0]["acctype"];
 $amount=$result[0]["Balance"];
 
-echo "<h3>Details for ".$account."</h3>";
+echo "<h3>Account Profile - ".$account."</h3>";
 echo "<h4>Account Type: ".$type."</h4>";
 echo "<h4>Account Balance: ".$amount."</h4>";
 ?>
