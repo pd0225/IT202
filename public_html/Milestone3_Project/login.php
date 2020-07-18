@@ -62,7 +62,7 @@ if(isset($_POST["login"])){
 						}
 					}
 					else{
-						echo "<div>Invalid user</div>";
+						echo "<div>Invalid user!</div>";
 					}
 					//echo "<div>Successfully registered!</div>";
 				}

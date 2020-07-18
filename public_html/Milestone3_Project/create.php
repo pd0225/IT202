@@ -39,7 +39,7 @@ if(isset($_POST["created"])){
             }catch (Exception $e1){
                 echo $e1->getMessage();
             }
-            $stmt = $db->prepare("INSERT INTO Accounts (Name, acctype, User_id) VALUES (:name, :acctype,:user)");
+            $stmt = $db->prepare("INSERT INTO Accounts (Name, type, User_id) VALUES (:name, :acctype,:user)");
             $result = $stmt->execute(array(
                 ":name" => $name,
                 ":acctype"=> $acctype,
@@ -49,7 +49,7 @@ if(isset($_POST["created"])){
             if($e[0] != "00000"){
                 echo var_export($e, true);
             }
-            $stmt1 = $db->prepare("SELECT max(id) as id FROM Accounts where Name = :name and acctype=:acctype and User_id=:user");
+            $stmt1 = $db->prepare("SELECT max(id) as id FROM Accounts where Name = :name and type=:acctype and User_id=:user");
             $stmt1->execute(array(
                 ":name" => $name,
                 ":acctype"=> $acctype,

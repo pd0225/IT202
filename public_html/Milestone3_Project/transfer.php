@@ -45,7 +45,6 @@ if(isset($_POST["Transfer"])){
 //echo "before major if 2a";
     $name = $_POST["Name"];
     $name1 = $_POST["Name1"];
-
     $balance = $_POST["Account Balance"];
     //$balance=$balance * -1;
     //echo "before major if 3".$name;
@@ -62,7 +61,7 @@ if(isset($_POST["Transfer"])){
             $db = new PDO($connection_string, $dbuser, $dbpass);
             //echo "before major if 3d<br>";
 
-            $stmt = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,acctype,amount,exp_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
+            $stmt = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,type,amount,exp_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
             $result = $stmt->execute(array(
                 ":acc_num" => $name1,
                 ":accnum1" => $name,
@@ -79,7 +78,7 @@ if(isset($_POST["Transfer"])){
             $balance =$balance * -1;
             //echo $balance;
 
-            $stmt2 = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,acctype,amount,expected_total) VALUES (:acc1,:acc, :acctype,:balance,:exp_balance)");
+            $stmt2 = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,type,amount,expected_total) VALUES (:acc1,:acc, :acctype,:balance,:exp_balance)");
             $result1 = $stmt2->execute(array(
                 ":acc1" => $name,
                 ":acc" => $name1,

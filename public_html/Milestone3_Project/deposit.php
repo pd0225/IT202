@@ -32,11 +32,11 @@ if(isset($_POST["Deposit"])){
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,acc_type,amount,expected_total) VALUES (:acc_num,:accnum1, :acc_type,:balance,:exp_balance)");
+            $stmt = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,type,amount,expected_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
             $result = $stmt->execute(array(
                 ":acc_num" => $name,
                 ":accnum1" => "000000000000",
-                ":acc_type" => "Deposit",
+                ":acctype" => "Deposit",
                 ":balance" => $balance,
                 ":exp_balance" => $balance
             ));
@@ -47,11 +47,11 @@ if(isset($_POST["Deposit"])){
             }
             $balance =$balance * -1;
             echo $balance;
-            $stmt2 = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,acc_type,amount,expected_total) VALUES (:acc1,:acc, :acc_type,:balance,:exp_balance)");
+            $stmt2 = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,type,amount,expected_total) VALUES (:acc1,:acc, :acctype,:balance,:exp_balance)");
             $result1 = $stmt2->execute(array(
                 ":acc1" => "000000000000",
                 ":acc" => $name,
-                ":acc_type" => "Withdraw",
+                ":acctype" => "Withdraw",
                 ":balance" => $balance,
                 ":exp_balance" => $balance
             ));
@@ -60,12 +60,12 @@ if(isset($_POST["Deposit"])){
                 var_dump($e);
                 $stmt2->debugDumpParams();
             }
-            $stmt = $db->prepare("update Accounts set Balance= (SELECT sum(Amount) FROM Transactions WHERE acc_src_id=:acc_num) where Account_Number=:acc_num");
+            $stmt = $db->prepare("update Accounts set Balance= (SELECT sum(Amount) FROM Transactions WHERE acc_src_id=:acc_num) where acc_num=:acc_num");
             $result = $stmt->execute(array(
                 ":acc_num" => $name
             ));
             if ($result){
-                echo "Successfully inserted new thing: " . $name;
+                echo "Successfully inserted new account: " . $name;
             }
             else{
                 echo "Error inserting record";
@@ -77,7 +77,7 @@ if(isset($_POST["Deposit"])){
         }
     }
     else{
-        echo "<div>Account and Amount must not be empty.<div>";
+        echo "<div>Account name and amount must not be empty.<div>";
     }
 }
 $stmt = $db->prepare("SELECT * FROM Accounts");
