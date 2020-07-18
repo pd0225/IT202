@@ -39,7 +39,7 @@ function do_bank_action($account2, $account3, $amountChange, $acctype){
     <form method="POST">
         <input type="text" name="account2" placeholder="Account ID">
         <!-- If our sample is a transfer show other account field-->
-        <?php if($_GET['acctype'] == 'transfer') : ?>
+        <?php if($_GET['type'] == 'transfer') : ?>
             <input type="text" name="account3" placeholder="Other Account ID">
         <?php endif; ?>
 
