@@ -37,7 +37,7 @@ if(isset($_POST["Created"])){
     $acctype = $_POST["acctype"];
     $balance = $_POST["Balance"];
     $type = "Deposit";
-    
+
     if(!empty($name) && !empty($acctype)&& !empty($balance) && $balance>=5){
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
