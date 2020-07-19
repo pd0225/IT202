@@ -1,9 +1,11 @@
 <head>
     <title>Preksha's Simple Bank</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <img src="psblogo.png" alt="Simple Bank Logo" height="100" width="100" align=center>
-    <h1>Simple Bank</h1>
 </head>
+<header>
+    <img src="psblogo.png" alt="Simple Bank Logo" height="150" width="170">
+    <h1>Simple Bank</h1>
+</header>
 <?php
 session_start();
 ?>

@@ -44,3 +44,6 @@ h1{
     font-family: monospace;
     color: darkslategrey;
 }
+header{
+    align-content: center;
+}
