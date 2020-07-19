@@ -40,9 +40,9 @@ h3 {
 }
 h1 {
     padding-top: 55px;
-    border-left-width: thick;
     font-family: monospace;
     color: darkslategrey;
+    margin-left: 545px;
 }
 img {
     align-content: center;
