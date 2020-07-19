@@ -1,5 +1,6 @@
 <head>
     <title>Preksha's Simple Bank</title>
+    <img src="Screen Shot 2020-07-19 at 11.34.36 AM" alt="Simple Bank Logo" height="80" align=left>
     <h1>Simple Bank</h1>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
