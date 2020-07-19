@@ -2,9 +2,10 @@ body{
     background-color: darkseagreen;
 }
 nav {
+    border-top: 3px solid darkslategrey;
     clear: left;
     margin: 0px;
-    padding: 0;
+    padding-bottom: 10px;
     border-bottom: 3px solid darkslategrey;
     display: block;
     text-align: center;
@@ -39,11 +40,11 @@ h3 {
     text-align: center;
 }
 h1 {
-    padding-top: 55px;
+    padding-top: 150px;
     font-family: monospace;
     color: darkslategrey;
-    margin-left: 545px;
+    margin-left: 540px;
 }
 psb {
-    margin-left: 20px;
+    margin-left: 39pc;
 }
