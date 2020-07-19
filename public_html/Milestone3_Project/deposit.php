@@ -3,6 +3,7 @@ include("header.php");
 
 $email=$_SESSION["user"]["email"];
 $accounts=$_SESSION["user"]["accounts"];
+$account=$_GET["acc_num"];
 $new_arr = array_column($accounts,'acc_num');
 echo "Hello". $email;?>
     <form method="POST">
@@ -32,7 +33,7 @@ if(isset($_POST["Deposit"])){
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,type,amount,expected_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
+            $stmt = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,type,amount,exp_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
             $result = $stmt->execute(array(
                 ":acc_num" => $name,
                 ":accnum1" => "000000000000",
@@ -47,7 +48,7 @@ if(isset($_POST["Deposit"])){
             }
             $balance =$balance * -1;
             echo $balance;
-            $stmt2 = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,type,amount,expected_total) VALUES (:acc1,:acc, :acctype,:balance,:exp_balance)");
+            $stmt2 = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,type,amount,exp_total) VALUES (:acc1,:acc, :acctype,:balance,:exp_balance)");
             $result1 = $stmt2->execute(array(
                 ":acc1" => "000000000000",
                 ":acc" => $name,
@@ -65,14 +66,14 @@ if(isset($_POST["Deposit"])){
                 ":acc_num" => $name
             ));
             if ($result){
-                echo "Successfully inserted new account: " . $name;
+                echo "Successfully inserted: " . $name;
             }
             else{
-                echo "Error inserting record";
+                echo "Error inserting record.";
             }
         }
         catch (Exception $e){
-            echo "Error inserting record 1";
+            echo "Error inserting record 1.";
             echo $e->getMessage();
         }
     }

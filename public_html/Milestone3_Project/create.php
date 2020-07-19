@@ -3,8 +3,11 @@ include("header.php");
 ?>
     <h2>Create Bank Account</h2>
 <script src="js/script.js"></script>
-<!-- note although <script> tag "can" be self terminating some browsers require the
-full closing tag-->
+<?php
+    $email=$_SESSION["user"]["email"];
+    $accounts=$_SESSION["user"]["accounts"];
+    $new_arr = array_column($accounts,'acc_num');
+    echo "Hello". $email;?>
 <form method="POST">
     <label for="account">Account Name
         <input type="text" id="account" name="name" />
@@ -15,16 +18,33 @@ full closing tag-->
     <label for="b">Balance
         <input type="number" id="b" name="balance" />
     </label>
-    <input type="submit" name="created" value="Create Account"/>
-</form>
+    <label for="transfer">Transfer from
 
+        <select name="Transfer" id="Transfer">
+            <option value=""></option>
+            <?php
+            foreach($new_arr as $item){
+                ?>
+                <option value="<?php echo strtolower($item); ?>"><?php echo $item; ?></option>
+                <?php
+            }
+            ?>
+        </select></label>
+    <input type="submit" name="Bank" value="Create Account"/>
+</form>
 <?php
-require ("common.inc.php");
-if(isset($_POST["created"])){
-    $name = $_POST["name"];
+require("common.inc.php");
+if(isset($_POST["Created"])){
+    $name = $_POST["Name"];
+
     $acctype = $_POST["acctype"];
-    $balance = $_POST["balance"];
-    if(!empty($name) && !empty($acctype)&& !empty($balance)){
+    $balance = $_POST["Balance"];
+    $transfer = $_POST["Transfer"];
+    $type = "Deposit";
+    if(empty($transfer))
+        $transfer= '000000000000';
+    else $type = "Transfer";
+    if(!empty($name) && !empty($acctype)&& !empty($balance) && $balance>=5){
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
@@ -39,17 +59,21 @@ if(isset($_POST["created"])){
             }catch (Exception $e1){
                 echo $e1->getMessage();
             }
-            $stmt = $db->prepare("INSERT INTO Accounts (Name, type, User_id) VALUES (:name, :acctype,:user)");
+            if($acctype == 'Savings')
+                $APY=3.25;
+            else $APY=0.00;
+            $stmt = $db->prepare("INSERT INTO Accounts (Name, acctype, User_id, APY) VALUES (:name, :acctype,:user,:APY)");
             $result = $stmt->execute(array(
                 ":name" => $name,
-                ":acctype"=> $acctype,
-                ":user"=>$user_id
+                ":acctype"=> $Acctyp,
+                ":user"=>$user_id,
+                ":APY"=> $APY
             ));
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
                 echo var_export($e, true);
             }
-            $stmt1 = $db->prepare("SELECT max(id) as id FROM Accounts where Name = :name and type=:acctype and User_id=:user");
+            $stmt1 = $db->prepare("SELECT max(id) as id FROM Accounts where Name = :name and acctype=:acctype and User_id=:user");
             $stmt1->execute(array(
                 ":name" => $name,
                 ":acctype"=> $acctype,
@@ -60,16 +84,17 @@ if(isset($_POST["created"])){
             $acc_num=str_pad($acc_id, 12, "0", STR_PAD_LEFT);
             //echo $acc_id;
             //echo " ".$account_num."<br>";
-            $stmt = $db->prepare("update Accounts set acc_num=:acc_num where id=:idnum");
+            $stmt = $db->prepare("update Accounts set acc_num=:accnum where id=:idnum");
             $result = $stmt->execute(array(
                 ":acc_num" => $acc_num,
                 ":idnum"=>$acc_id
             ));
-            $stmt = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dst_id,acctype,amount,exp_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
+            $balance =$balance * -1;
+            $stmt = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest,type,amount,exp_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
             $result = $stmt->execute(array(
-                ":acc_num" => $acc_num,
-                ":accnum1" => "000000000000",
-                ":acctype" => "Deposit",
+                ":acc_num" => $transfer,
+                ":accnum1" => $acc_num ,
+                ":type" => $acctype,
                 ":balance" => $balance,
                 ":exp_balance" => $balance
             ));
@@ -81,31 +106,38 @@ if(isset($_POST["created"])){
             $balance =$balance * -1;
             //echo $balance;
 
-            $stmt2 = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dst_id,acctype,amount,exp_total) VALUES (:acc1,:acc, :acctype,:balance,:exp_balance)");
+            $stmt2 = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,type,amount,exp_total) VALUES (:acc1,:acc, :acctype,:balance,:exp_balance)");
             $result1 = $stmt2->execute(array(
-                ":acc1" => "000000000000",
-                ":acc" => $account_num,
-                ":acctype" => "WithDraw",
+                ":acc1" => $acc_num,
+                ":acc" => $transfer,
+                ":type" => $acctype,
                 ":balance" => $balance,
                 ":exp_balance" => $balance
             ));
             $e = $stmt2->errorInfo();
             if($e[0] != "00000"){
-                //var_dump($e);
-                //$stmt2->debugDumpParams();
-                //echo "setting AAAAAeee ".$e."<br>";
+
             }
-            $stmt = $db->prepare("update Accounts set Balance= (SELECT sum(Amount) FROM Transactions WHERE acc_src_id=:acc_num) where acc_num=:acc_num");
+            $stmt = $db->prepare("update Accounts set Balance= (SELECT sum(Amount) FROM Transactions WHERE acc_src_id=:accnum) where acc_num=:accnum");
             $result = $stmt->execute(array(
                 ":acc_num" => $acc_num
             ));
             if ($result){
-                echo "Successfully Created new Account for : " . $name;
+                echo "Successfully created new account for : " . $name;
+                $query=$db->prepare("SELECT b.acc_num FROM Accounts b, Users a where a.id=b.User_id and a.email=:email");
+                $query->execute(array(
+                    ":email" => $email
+                ));
+                $res = $query->fetchAll();
+                $_SESSION["user"]["accounts"]=$res;
+                echo var_export($_SESSION, true);
+                header("Location: home.php");
             }
             else{
                 echo "Error inserting record";
             }
         }
+
         catch (Exception $e){
 
             echo $e->getMessage();
@@ -114,7 +146,7 @@ if(isset($_POST["created"])){
 
     else{
 
-        echo "<div>Account Name, Account Type and Account Balance must not be empty.<div>";
+        echo "<div>Account name, account type and account balance must not be empty. Balance must be a minimum of $5.<div>";
     }
 }
 $stmt = $db->prepare("SELECT * FROM Accounts");

@@ -4,19 +4,13 @@ include("header.php");
 $email=$_SESSION["user"]["email"];
 $accounts=$_SESSION["user"]["accounts"];
 $new_arr = array_column($accounts,'acc_num');
+$account=$_GET["acc_num"];
 echo "Hello". $email;?>
     <form method="POST">
         <label for="name">Account
+            <input type="text" id="Name" name="Name" value="<?php echo $account; ?>" readonly>
         </label>
-        <select name="Name" id="Name">
-            <?php
-            foreach($new_arr as $item){
-                ?>
-                <option value="<?php echo strtolower($item); ?>"><?php echo $item; ?></option>
-                <?php
-            }
-            ?>
-        </select>
+
         <label for="balance">Amount
             <input type="number" id="balance" name="Balance" />
         </label>
@@ -28,16 +22,25 @@ if(isset($_POST["Withdraw"])){
     $name = $_POST["Name"];
     $balance = $_POST["Balance"];
     $balance=$balance * -1;
-    if(!empty($name) && !empty($balance)){
-        require("config.php");
-        $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
+    require("config.php");
+    $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
+    $db = new PDO($connection_string, $dbuser, $dbpass);
+    $stmt1 = $db->prepare("SELECT * FROM Accounts where acc_num=:acc");
+    $stmt1->execute(array(
+        ":acc" => $name
+    ));
+    $result = $stmt1->fetchAll();
+    $amount=$result[0]["Balance"];
+
+    if(!empty($name) && !empty($balance) && $amount>=5){
+
         try{
-            $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Transactions (act_src_id, act_dest_id,type,amount,expected_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
+
+            $stmt = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,type,amount,exp_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
             $result = $stmt->execute(array(
                 ":acc_num" => $name,
                 ":accnum1" => "000000000000",
-                ":acctype" => "Withdraw",
+                ":type" => "Withdraw",
                 ":balance" => $balance,
                 ":exp_balance" => $balance
             ));
@@ -48,11 +51,11 @@ if(isset($_POST["Withdraw"])){
             }
             $balance =$balance * -1;
             echo $balance;
-            $stmt2 = $db->prepare("INSERT INTO Transactions (act_src_id, act_dest_id,type,Amount,expected_total) VALUES (:acc1,:acc, :acctype,:balance,:exp_balance)");
+            $stmt2 = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,type,amount,exp_total) VALUES (:acc1,:acc, :acctype,:balance,:exp_balance)");
             $result1 = $stmt2->execute(array(
                 ":acc1" => "000000000000",
                 ":acc" => $name,
-                ":acctype" => "Deposit",
+                ":type" => "Withdraw",
                 ":balance" => $balance,
                 ":exp_balance" => $balance
             ));
@@ -61,24 +64,26 @@ if(isset($_POST["Withdraw"])){
                 var_dump($e);
                 $stmt2->debugDumpParams();
             }
-            $stmt = $db->prepare("update Accounts set Balance= (SELECT sum(Amount) FROM Transactions WHERE act_src_id=:acc_num) where Account_Number=:acc_num");
+            $stmt = $db->prepare("update Accounts set Balance= (SELECT sum(Amount) FROM Transactions WHERE acc_src_id=:acc_num) where acc_num=:acc_num");
             $result = $stmt->execute(array(
                 ":acc_num" => $name
             ));
             if ($result){
-                echo "Successfully inserted new account: " . $name;
+                echo "Successfully inserted: " . $name;
+                header("Location: home.php");
+
             }
             else{
-                echo "Error inserting record";
+                echo "Error inserting record.";
             }
         }
         catch (Exception $e){
-            echo "Error inserting record 1";
+            echo "Error inserting record 1.";
             echo $e->getMessage();
         }
     }
     else{
-        echo "<div>Account name and amount must not be empty.<div>";
+        echo "<div>Account name and amount must not be empty. Withdraw amount should not be more than your total balance. A five-dollar balance must be remain.<div>";
     }
 }
 $stmt = $db->prepare("SELECT * FROM Accounts");
