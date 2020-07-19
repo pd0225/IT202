@@ -6,8 +6,7 @@ include("header.php");
 <?php
     $email=$_SESSION["user"]["email"];
     $accounts=$_SESSION["user"]["accounts"];
-    $new_arr = array_column($accounts,'acc_num');
-    echo "Hello". $email;?>
+    $new_arr = array_column($accounts,'acc_num'); ?>
 <form method="POST">
     <label for="account">Account Name
         <input type="text" id="account" name="name" />
@@ -18,9 +17,7 @@ include("header.php");
     <label for="b">Balance
         <input type="number" id="b" name="balance" />
     </label>
-    <label for="transfer">Transfer from
 
-        <select name="Transfer" id="Transfer">
             <option value=""></option>
             <?php
             foreach($new_arr as $item){
@@ -39,11 +36,8 @@ if(isset($_POST["Created"])){
 
     $acctype = $_POST["acctype"];
     $balance = $_POST["Balance"];
-    $transfer = $_POST["Transfer"];
     $type = "Deposit";
-    if(empty($transfer))
-        $transfer= '000000000000';
-    else $type = "Transfer";
+    
     if(!empty($name) && !empty($acctype)&& !empty($balance) && $balance>=5){
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";

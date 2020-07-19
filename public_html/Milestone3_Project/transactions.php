@@ -45,15 +45,22 @@ function do_bank_action($account2, $account3, $amountChange, $acctype){
 
         <input type="number" name="amount" placeholder="$0.00"/>
         <input type="hidden" name="type" value="<?php echo $_GET['acctype'];?>"/>
+        <label for="transfer">Transfer from
+
+            <select name="Transfer" id="Transfer">
 
         <!--Based on sample acctype change the submit button display-->
         <input type="submit" value="Transfer Money"/>
     </form>
 
 <?php
+if(empty($transfer))
+    $transfer= '000000000000';
+else $type = "Transfer";
 if(isset($_POST['acctype']) && isset($_POST['account1']) && isset($_POST['amount'])){
     $acctype = $_POST['acctype'];
     $amount = (int)$_POST['amount'];
+    $transfer = $_POST["Transfer"];
     switch($acctype){
         case 'deposit':
             do_bank_action("000000000000", $_POST['account1'], ($amount * -1), $acctype);

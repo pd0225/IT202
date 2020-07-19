@@ -13,8 +13,7 @@ $new_arr = array_column($accounts, "acc_num");
         echo '<br>';
     }
 ?>
-    }
-?>
+
 <h2>Home</h2>
 <?php echo "Welcome to Preksha's bank, " . $_SESSION["user"]["email"]
 ?>
