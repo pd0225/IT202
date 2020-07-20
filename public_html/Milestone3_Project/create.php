@@ -7,9 +7,9 @@ include("header.php");
     $email=$_SESSION["user"]["email"];
     $accounts=$_SESSION["user"]["accounts"];
     $new_arr = array_column($accounts,'acc_num'); ?>
-<<form method="POST">
+<form method="POST">
     <label for="name">Account Name
-        <input type="text" id="name" name="name" />
+        <input type="text" id="name" name="name"/>
     </label>
     <label for="acctype">Account Type
         <select id="acctyp" name="acctype" style="background-color: mediumpurple;">
@@ -23,7 +23,7 @@ include("header.php");
     </label>
     <label for="transfer">Transfer from
 
-        <select name="Transfer" id="Transfer">
+        <select name="Transfer" id="Transfer" style="background-color: mediumpurple;">
             <option value=""></option>
             <?php
             foreach($new_arr as $item){
