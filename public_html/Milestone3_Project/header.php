@@ -30,9 +30,6 @@ session_start();
     </ul>
     <ul>
         <li>
-            <a href="transactions.php">Transactions</a>
-        </li>
-        <li>
             <a href="create.php">Create Bank Account</a>
         </li>
         <li>
