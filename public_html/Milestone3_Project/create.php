@@ -12,7 +12,7 @@ include("header.php");
         <input type="text" id="name" name="name"/>
     </label>
     <label for="acctype">Account Type
-        <select id="acctyp" name="acctype" style="background-color: mediumpurple;">
+        <select id="acctyp" name="acctype" style="background-color: bisque;">
             <option value="Checkings">Checkings</option>
             <option value="Savings">Savings</option>
             <option value="Loan">Loan</option>
@@ -23,7 +23,7 @@ include("header.php");
     </label>
     <label for="transfer">Transfer from
 
-        <select name="Transfer" id="Transfer" style="background-color: mediumpurple;">
+        <select name="Transfer" id="Transfer" style="background-color: bisque;">
             <option value=""></option>
             <?php
             foreach($new_arr as $item){
