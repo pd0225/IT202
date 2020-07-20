@@ -10,6 +10,8 @@ include("header.php");
 	<input type="password" id="p" name="password" autocomplete="off"/>
 	</label>
 	<input type="submit" name="login" value="Login"/>
+    <input type="button" class="submit" onclick="window.location.href='password.php'"
+           value="Change Password"/>
 </form>
 
 <?php
