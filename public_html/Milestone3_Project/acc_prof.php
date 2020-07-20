@@ -33,8 +33,8 @@ echo "<h3>Account Profile - ".$account."</h3>";
 echo "<h4>Account Type: ".$type."</h4>";
 echo "<h4>Account Balance: ".$amount."</h4>";
 ?>
-<input type="date" placeholder="From Date" id="post_at" name="post_at"   />
-<input type="date" placeholder="To Date" id="post_at_to_date" name="post_at_to_date" style="margin-left:15px"    />
+<input type="date" placeholder="From Date" id="post_at" name="post_at" style="margin-top: 10px "/>
+<input type="date" placeholder="To Date" id="post_at_to_date" name="post_at_to_date" style="margin-left:25px"    />
 
 <br>
 <select name="types" id="types">
