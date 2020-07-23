@@ -1,7 +1,7 @@
 <head>
     <title>Simple Bank</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <img id="psb" src="psblogo.png" alt="Simple Bank Logo" height="140" width="160" align="left" style="margin-left: 39pc;">
+    <img id="psb" src="psb.jpg" alt="Simple Bank Logo" height="140" width="160" align="left" style="margin-left: 39pc;">
     <h1>Preksha's Simple Bank</h1>
 </head>
 <?php
