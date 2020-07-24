@@ -1,6 +1,8 @@
 <?php
 include("header.php");
-
+?>
+<h2>Make a Transfer</h2>
+<?php
 $email=$_SESSION["user"]["email"];
 $accounts=$_SESSION["user"]["accounts"];
 $new_arr = array_column($accounts,'acc_num');
