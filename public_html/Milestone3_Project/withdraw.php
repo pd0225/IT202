@@ -10,7 +10,7 @@ $account=$_GET["acc_num"];
 ?>
     <form method="POST">
         <label for="name">Account
-            <input type="text" id="Name" name="Name" value="<?php echo $account; ?>" readonly>
+            <input type="text" id="Name" name="Name" value="<?php echo $account; ?>">
         </label>
 
         <label for="balance">Amount
