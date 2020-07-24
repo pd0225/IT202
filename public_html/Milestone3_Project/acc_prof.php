@@ -26,11 +26,11 @@ if($e[0] != "00000"){
     var_dump($e);
     echo "setting eee ".$e."<br>";
 }
-$type=$result[0]["acctype"];
+$acctype=$result[0]["acctype"];
 $amount=$result[0]["Balance"];
 
 echo "<h3>Account Profile - ".$account."</h3>";
-echo "<h4>Account Type: ".$type."</h4>";
+echo "<h4>Account Type: ".$acctype."</h4>";
 echo "<h4>Account Balance: ".$amount."</h4>";
 ?>
 <input type="date" placeholder="From Date" id="post_at" name="post_at" style="margin-top: 10px "/>
@@ -66,7 +66,7 @@ echo "<h4>Account Balance: ".$amount."</h4>";
         $.ajax({
             type: "GET",
             url: "pages.php",
-            data: {"pageNumber": pageNumber,"account": acc, "datefrom": post_at, "dateto": post_at_to_date, "type": strUser},
+            data: {"pageNumber": pageNumber,"account": acc, "datefrom": post_at, "dateto": post_at_to_date, "acctype": strUser},
             cache: false,
             beforeSend: function() {
                 $('#loader').html('<img src="loader.png" alt="reload" width="20" height="20" style="margin-top:10px;">');

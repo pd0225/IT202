@@ -70,7 +70,7 @@ if(isset($_POST["Bank"])){
             }catch (Exception $e1){
                 echo $e1->getMessage();
             }
-            if($Acctyp == 'Savings')
+            if($acctype == 'Savings')
                 $APY=3.25;
             else $APY=0.00;
             $stmt = $db->prepare("INSERT INTO Accounts (Name, acctype, User_id, APY) VALUES (:name, :acctype,:user,:APY)");
@@ -105,7 +105,7 @@ if(isset($_POST["Bank"])){
             $result = $stmt->execute(array(
                 ":accnum" => $transfer,
                 ":accnum1" => $account_num ,
-                ":type" => $type,
+                ":acctype" => $acctype,
                 ":balance" => $balance,
                 ":exp_balance" => $amount
             ));
@@ -121,7 +121,7 @@ if(isset($_POST["Bank"])){
             $result1 = $stmt2->execute(array(
                 ":acc1" => $acc_num,
                 ":acc" => $transfer,
-                ":type" => $type,
+                ":acctype" => $acctype,
                 ":balance" => $balance,
                 ":exp_balance" => $balance
             ));
@@ -136,7 +136,7 @@ if(isset($_POST["Bank"])){
                 ":acc_num" => $acc_num
             ));
             if ($result){
-                echo "Successfully Created new Account for : " . $name;
+                echo "Successfully created new account for : " . $name;
                 $query=$db->prepare("SELECT b.acc_num FROM Accounts b, Users a where a.id=b.User_id and a.email=:email");
                 $query->execute(array(
                     ":email" => $email
@@ -159,7 +159,7 @@ if(isset($_POST["Bank"])){
 
     else{
 
-        echo "<div>Name, account type and balance must not be empty. Balance should be at least $5.<div>";
+        echo "<div>Account name, account type and balance must not be empty. Balance should be at least $5.<div>";
     }
 }
 $stmt = $db->prepare("SELECT * FROM Accounts");

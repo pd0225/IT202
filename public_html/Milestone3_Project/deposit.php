@@ -37,11 +37,11 @@ if(isset($_POST["Deposit"])){
             try{
 
                 $balance =$balance * -1;
-                $stmt = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,type,amount,exp_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
+                $stmt = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,acc,amount,exp_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
                 $result = $stmt->execute(array(
                     ":acc_num" => "000000000000",
                     ":accnum1" => $name,
-                    ":type" => "Deposit",
+                    ":acctype" => "Deposit",
                     ":balance" => $balance,
                     ":exp_balance" => $balance
                 ));
@@ -52,11 +52,11 @@ if(isset($_POST["Deposit"])){
                 }
                 $balance =$balance * -1;
                 echo $balance;
-                $stmt2 = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,type,amount,exp_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
+                $stmt2 = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,acctype,amount,exp_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
                 $result1 = $stmt2->execute(array(
                     ":acc1" => $name,
                     ":acc" => "000000000000",
-                    ":type" => "Deposit",
+                    ":acctype" => "Deposit",
                     ":balance" => $balance,
                     ":exp_balance" => $amount
                 ));
