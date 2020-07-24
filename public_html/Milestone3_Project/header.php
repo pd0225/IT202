@@ -44,6 +44,14 @@ session_start();
         <li>
             <a href="search.php">Search</a>
         </li>
+        <ul>
+            <li>
+                <a href="deposit.php">Deposit</a>
+            </li>
+            <li>
+                <a href="withdraw.php">Withdraw</a>
+            </li>
+        </ul>
 
     </ul>
 
