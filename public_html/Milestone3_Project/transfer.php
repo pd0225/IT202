@@ -10,20 +10,22 @@ $account=$_GET["acc_num"];
 ?>
     <form method="POST">
         <label for="name">From
+            <input type="text" id="name" name="name"/>
+        </label>
+        <label for="name">From
             <select id="name" name="name" style="background-color: bisque;">
                 <option value=$name></option>
                 <option value=$name></option>
                 <option value=$name></option>
             </select>
-            <input type="text" id="Name" name="Name" value="<?php echo $account; ?>" readonly>
         </label>
         <label for="name">To
+            <input type="text" id="name" name="name"/>
             <select id="name" name="name" style="background-color: bisque;">
                 <option value=$name></option>
                 <option value=$name></option>
                 <option value=$name></option>
             </select>
-            <input type="text" id="Name" name="Name" value="<?php echo $account; ?>" readonly>
         </label>
         <select name="Name1" id="Name1">
             <?php
