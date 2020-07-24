@@ -21,10 +21,7 @@ include("header.php");
     <label for="balance">Balance
         <input type="number" id="balance" name="Balance" />
     </label>
-    <label for="transfer">Transfer from
-
-        <select name="Transfer" id="Transfer" style="background-color: bisque;">
-            <option value=""></option>
+    
             <?php
             foreach($new_arr as $item){
                 ?>
