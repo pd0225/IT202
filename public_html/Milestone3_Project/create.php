@@ -12,7 +12,7 @@ include("header.php");
         <input type="text" id="name" name="name"/>
     </label>
     <label for="acctype">Account Type
-        <select id="acctyp" name="acctype" style="background-color: bisque;">
+        <select id="acctype" name="acctype" style="background-color: bisque;">
             <option value="Checkings">Checkings</option>
             <option value="Savings">Savings</option>
             <option value="Loan">Loan</option>
