@@ -21,7 +21,7 @@ include("header.php");
     <label for="balance">Balance
         <input type="number" id="balance" name="Balance" />
     </label>
-    
+
             <?php
             foreach($new_arr as $item){
                 ?>
@@ -57,7 +57,7 @@ if(isset($_POST["Bank"])){
 
     }
     $amount=$amount-$balance;
-    if(!empty($name) && !empty($Acctyp)&& !empty($balance) && $balance>=5){
+    if(!empty($name) && !empty($acctype)&& !empty($balance) && $balance>=5){
         try{
 
             try{
