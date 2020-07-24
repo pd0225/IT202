@@ -81,7 +81,7 @@ if(isset($_POST["Deposit"])) {
                 echo $e->getMessage();
             }
         } else {
-            echo "<div>Account name and amount must not be empty.<div>";
+            echo "<div>Account name and amount must not be empty. Amount of deposit should be at least $5.<div>";
         }
     }
     $stmt = $db->prepare("SELECT * FROM Accounts");
