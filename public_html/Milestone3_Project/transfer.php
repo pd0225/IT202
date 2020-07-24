@@ -5,8 +5,7 @@ $email=$_SESSION["user"]["email"];
 $accounts=$_SESSION["user"]["accounts"];
 $new_arr = array_column($accounts,'acc_num');
 $account=$_GET["acc_num"];
-//var_dump($new_arr);
-echo "Hello". $email;?>
+?>
     <form method="POST">
         <label for="name">From
         </label>
@@ -37,7 +36,7 @@ if(isset($_POST["Transfer"])){
 
     $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
     $db = new PDO($connection_string, $dbuser, $dbpass);
-    $stmt1 = $db->prepare("SELECT * FROM Bank_Account where Account_Number=:acc");
+    $stmt1 = $db->prepare("SELECT * FROM Accounts where acc_num=:acc");
     $stmt1->execute(array(
         ":acc" => $name
     ));
@@ -114,7 +113,7 @@ if(isset($_POST["Transfer"])){
     }
 
     else{
-        echo "Account and amount must not be empty. Amount should be greater than zero. Account should have a five-dollar remaining balance.";
+        echo "Account name and amount must not be empty. Amount should be greater than zero. Account should have a five-dollar remaining balance.";
     }
 }
 $stmt = $db->prepare("SELECT * FROM Accounts");
