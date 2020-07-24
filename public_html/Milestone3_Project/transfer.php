@@ -107,10 +107,10 @@ if(isset($_POST["Transfer"])){
             }
             $stmt = $db->prepare("update Accounts set Balance= (SELECT sum(Amount) FROM Transactions WHERE acc_src_id=:accnum) where acc_num=:acc_num");
             $result = $stmt->execute(array(
-                ":accnum" => $name
+                ":acc_num" => $name
             ));
             $res = $stmt->execute(array(
-                ":accnum" => $name1
+                ":acc_num" => $name1
             ));
             if ($result){
                 echo "Successfully transferred ".$balance." from account " . $name." to account ".$name1;
