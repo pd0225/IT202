@@ -12,7 +12,6 @@ $account=$_GET["acc_num"];
         <label for="name">From
             <input type="text" id="name" name="name"/>
         </label>
-        <label for="name">From
             <select id="name" name="name" style="background-color: bisque;">
                 <option value=$name></option>
                 <option value=$name></option>
@@ -27,7 +26,6 @@ $account=$_GET["acc_num"];
                 <option value=$name></option>
             </select>
         </label>
-        <select name="Name1" id="Name1">
             <?php
             foreach($new_arr as $item){
                 ?>
