@@ -23,7 +23,6 @@ require("common.inc.php");
 if(isset($_POST["Deposit"])) {
     $name = $_POST["Name"];
     $balance = $_POST["Balance"];
-    if (!empty($name) && !empty($balance)) {
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         $db = new PDO($connection_string, $dbuser, $dbpass);
@@ -87,6 +86,4 @@ if(isset($_POST["Deposit"])) {
     }
     $stmt = $db->prepare("SELECT * FROM Accounts");
     $stmt->execute();
-
-}
     ?>
