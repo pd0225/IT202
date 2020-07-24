@@ -1,11 +1,13 @@
 <?php
 include("header.php");
-
+?>
+    <h2>Make a Deposit</h2>
+<?php
 $email=$_SESSION["user"]["email"];
 $accounts=$_SESSION["user"]["accounts"];
-$account=$_GET["acc_num"];
 $new_arr = array_column($accounts,'acc_num');
-echo "Hello". $email;?>
+$account=$_GET["acc_num"];
+?>
     <form method="POST">
         <label for="name">Account
         </label>
@@ -18,25 +20,25 @@ echo "Hello". $email;?>
     </form>
 <?php
 require("common.inc.php");
-if(isset($_POST["Deposit"])){
+if(isset($_POST["Deposit"])) {
     $name = $_POST["Name"];
     $balance = $_POST["Balance"];
-    if(!empty($name) && !empty($balance)){
+    if (!empty($name) && !empty($balance)) {
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
-            $db = new PDO($connection_string, $dbuser, $dbpass);
+        $db = new PDO($connection_string, $dbuser, $dbpass);
         $stmt1 = $db->prepare("SELECT * FROM Accounts where acc_num=:acc");
         $stmt1->execute(array(
             ":acc" => $name
         ));
         $result = $stmt1->fetchAll();
-        $amount=$result[0]["Balance"];
-        $amount=$amount+$balance;
-        if(!empty($name) && !empty($balance)){
+        $amount = $result[0]["Balance"];
+        $amount = $amount + $balance;
+        if (!empty($name) && !empty($balance)) {
 
-            try{
+            try {
 
-                $balance =$balance * -1;
+                $balance = $balance * -1;
                 $stmt = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,acc,amount,exp_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
                 $result = $stmt->execute(array(
                     ":acc_num" => "000000000000",
@@ -46,11 +48,11 @@ if(isset($_POST["Deposit"])){
                     ":exp_balance" => $balance
                 ));
                 $e = $stmt->errorInfo();
-                if($e[0] != "00000"){
+                if ($e[0] != "00000") {
                     var_dump($e);
-                    echo "setting eee ".$e."<br>";
+                    echo "setting eee " . $e . "<br>";
                 }
-                $balance =$balance * -1;
+                $balance = $balance * -1;
                 echo $balance;
                 $stmt2 = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,acctype,amount,exp_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
                 $result1 = $stmt2->execute(array(
@@ -61,7 +63,7 @@ if(isset($_POST["Deposit"])){
                     ":exp_balance" => $amount
                 ));
                 $e = $stmt2->errorInfo();
-                if($e[0] != "00000"){
+                if ($e[0] != "00000") {
                     var_dump($e);
                     $stmt2->debugDumpParams();
                 }
@@ -69,23 +71,22 @@ if(isset($_POST["Deposit"])){
                 $result = $stmt->execute(array(
                     ":acc_num" => $name
                 ));
-                if ($result){
+                if ($result) {
                     echo "Successfully inserted: " . $name;
                     header("Location: home.php");
-                }
-                else{
+                } else {
                     echo "Error inserting record";
                 }
-            }
-            catch (Exception $e){
+            } catch (Exception $e) {
                 echo "Error inserting record 1";
                 echo $e->getMessage();
             }
-        }
-        else{
+        } else {
             echo "<div>Account name and amount must not be empty.<div>";
         }
     }
     $stmt = $db->prepare("SELECT * FROM Accounts");
     $stmt->execute();
+
+}
     ?>

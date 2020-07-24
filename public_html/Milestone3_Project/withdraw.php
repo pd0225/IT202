@@ -1,11 +1,13 @@
 <?php
 include("header.php");
-
+?>
+    <h2>Withdraw</h2>
+<?php
 $email=$_SESSION["user"]["email"];
 $accounts=$_SESSION["user"]["accounts"];
 $new_arr = array_column($accounts,'acc_num');
 $account=$_GET["acc_num"];
-echo "Hello". $email;?>
+?>
     <form method="POST">
         <label for="name">Account
             <input type="text" id="Name" name="Name" value="<?php echo $account; ?>" readonly>

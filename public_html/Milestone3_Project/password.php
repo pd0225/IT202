@@ -21,7 +21,6 @@ include("header.php");
                        value="Login"/>
             </div>
         </form>
-    </div>
 <?php
 if (isset($_POST["register"])) {
     if (isset($_POST["password"]) && isset($_POST["cpassword"]) && isset($_POST["email"])) {
@@ -41,13 +40,13 @@ if (isset($_POST["register"])) {
                 if ($e[0] != "00000") {
                     echo var_export($e, true);
                 } else {
-                    echo "<div style="text-align: center">Successfully changed password!</div>";
+                    echo "Successfully changed password!";
                 }
             } catch (Exception $e) {
                 echo $e->getMessage();
             }
         } else {
-            echo "<div style="text-align: center">Passwords do not match.</div>";
+            echo "Passwords do not match";
         }
     }
 }
