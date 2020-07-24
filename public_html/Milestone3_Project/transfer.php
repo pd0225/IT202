@@ -41,6 +41,7 @@ $account=$_GET["acc_num"];
     </form>
 <?php
 require("common.inc.php");
+require("config.php");
 if(isset($_POST["Transfer"])){
 
     $name = $_POST["Name"];
