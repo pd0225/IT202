@@ -5,6 +5,7 @@
     <h1>Preksha's Simple Bank</h1>
 </head>
 <?php
+require("config.php");
 session_start();
 ?>
 <nav>
