@@ -18,7 +18,7 @@ include("header.php");
     <label for="balance">Balance
         <input type="number" id="balance" name="Balance" />
     </label>
-
+    <input type="submit" name="created" value="Create Account"/>
 <?php
 if(isset($_POST["created"])){
     $name = $_POST["name"];
