@@ -1,20 +1,20 @@
 <?php
 include("header.php");
 ?>
-        <form method="POST">
-            <div>
+        <form method="POST" style="padding: 20px">
+            <div style="padding: 10px">
                 <label for="email">Email</label><br>
                 <input type="email" id="email" name="email" placeholder="Email" required/>
             </div>
-            <div>
+            <div style="padding: 10px">
                 <label for="pass">New Password</label><br>
                 <input type="password" id="pass" name="password" placeholder="Password" required/>
             </div>
-            <div>
+            <div style="padding: 10px">
                 <label for="cpass">Confirm New Password</label><br>
                 <input type="password" id="cpasss" name="cpassword" placeholder="Confirm New Password" required/>
             </div>
-            <div>
+            <div style="padding: 10px">
                 <input class="submit" type="submit" name="register" value="Change Password"/>
                 <input type="button" class="submit"
                        onclick="window.location.href='login.php'"
