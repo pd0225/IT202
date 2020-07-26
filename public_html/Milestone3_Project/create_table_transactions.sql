@@ -1,5 +1,6 @@
 CREATE TABLE Transactions (
     id int auto_increment,
+    name varchar(20) unique,
     acc_src_id int not null,
     acc_dest_id int null,
     amount decimal(12,2),
