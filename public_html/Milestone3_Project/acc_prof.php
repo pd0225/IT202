@@ -10,12 +10,12 @@ include("header.php");
     <input type="submit" value="View Account Activity"/>
 </form>
 
-if (Common::is_logged_in()) {
-echo "<h4>User: " . $name . "</h4>";
-echo "<h4>Account Type: " . $acctype . "</h4>";
-echo "<h4>Account Balance: " . $amount . "</h4>";
-}
 <?php
+if (Common::is_logged_in()) {
+    echo "<h4>User: " . $account . "</h4>";
+    echo "<h4>Account Type: " . $acctype . "</h4>";
+    echo "<h4>Account Balance: " . $amount . "</h4>";
+}
 $email=$_SESSION["user"]["email"];
 $account=$_GET["account"];
 $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
@@ -45,7 +45,7 @@ $amount=$result[0]["Balance"];
 
 ?>
 
-<input type="date" placeholder="From Date" id="post_at" name="post_at" style="margin-top: 10px "/>
+<input type="date" placeholder="From Date" id="post_at" name="post_at" style="margin-top: 10px"/>
 <input type="date" placeholder="To Date" id="post_at_to_date" name="post_at_to_date" style="margin-left:25px"    />
 
 <br>
