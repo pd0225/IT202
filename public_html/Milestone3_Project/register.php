@@ -14,24 +14,38 @@
 </form>
 
 <?php
-if (Common::get($_POST, "submit", false)){
-    $email = Common::get($_POST, "email", false);
-    $password = Common::get($_POST, "password", false);
-    $cpassword = Common::get($_POST, "cpassword", false);
-    if($password != $cpassword){
-        Common::flash("Passwords should match.", "warning");
-        die(header("Location: register.php"));
-    }
-    if(!empty($email) && !empty($password) && !empty($cpassword)){
-        $result = DBH::register($email, $password);
-        echo var_export($result, true);
-        if(Common::get($result, "status", 400) == 200){
-            echo "Successfully Registered!";
-            //die(header("Location: " . Common::url_for("login")));
+if(isset($_POST["register"]))
+    if(isset($_POST["password"]) && isset($_POST["cpassword"]) && isset($_POST["email"])) {
+        $password = $_POST["password"];
+        $cpassword = $_POST["cpassword"];
+        $email = $_POST["email"];
+        if($password == $cpassword) {
+            //echo "<div>Passwords Match</div>";
+            require("config.php");
+            $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
+            try{
+                $db = new PDO($connection_string, $dbuser, $dbpass);
+                $hash = password_hash($password, PASSWORD_BCRYPT);
+                $stmt = $db->prepare("INSERT INTO Users (email, password) VALUES(:email, :password)");
+                $stmt->execute(array(
+                    ":email" => $email,
+                    ":password" => $hash //Don't save raw password $password
+                ));
+                $e = $stmt->errorInfo();
+                if($e[0] != "00000"){
+                    echo var_export($e, true);
+                }
+                else{
+                    echo "<div>Successfully registered!</div>";
+                }
+            }
+            catch (Exception $e){
+                echo $e->getMessage();
+            }
+
+        }
+        else{
+            echo "<div>Passwords don't match</div>";
         }
     }
-    else{
-        echo "Email and password must not be empty.";
-        die(header("Location: register.php"));
-    }
-}
+?>
