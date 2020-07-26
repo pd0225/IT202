@@ -15,63 +15,24 @@ include("header.php");
 </form>
 
 <?php
-
-//echo var_export($_GET, true);
-//echo var_export($_POST, true);
-//echo var_export($_REQUEST, true);
-if(isset($_POST["login"])){
-	if(isset($_POST["password"]) && isset($_POST["email"])){
-		$password = $_POST["password"];
-		$email = $_POST["email"];
-		//require("config.php");
-			$connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
-			try{
-				$db = new PDO($connection_string, $dbuser, $dbpass);
-				$stmt = $db->prepare("SELECT * FROM Users where email = :email LIMIT 1");
-				$stmt->execute(array(
-					":email" => $email
-				));
-				$e = $stmt->errorInfo();
-				if($e[0] != "00000"){
-					echo var_export($e, true);
-				}
-				else{
-					$result = $stmt->fetch(PDO::FETCH_ASSOC);
-					if ($result){
-						$rpassword = $result["password"];
-						if(password_verify($password, $rpassword)){
-							echo "<div>Passwords matched! You are technically logged in!</div>";
-							$_SESSION["user"] = array(
-								"id"=>$result["id"],
-								"email"=>$result["email"],
-								"first_name"=>$result["first_name"],
-								"last_name"=>$result["last_name"]
-							);
-
-                            $query=$db->prepare("SELECT b.acc_num FROM Accounts b, Users a where a.id=b.User_id and a.email=:email");
-
-                            $query->execute(array(
-                                ":email" => $email
-                            ));
-                            $res = $query->fetchAll();
-                            $_SESSION["user"]["accounts"]=$res;
-
-							echo var_export($_SESSION, true);
-							header("Location: home.php");
-						}
-						else{
-							echo "<div>Invalid password!</div>";
-						}
-					}
-					else{
-						echo "<div>Invalid user!</div>";
-					}
-					//echo "<div>Successfully registered!</div>";
-				}
-			}
-			catch (Exception $e){
-				echo $e->getMessage();
-			}
-	}
+if (Common::get($_POST, "submit", false)){
+    $email = Common::get($_POST, "email", false);
+    $password = Common::get($_POST, "password", false);
+    if(!empty($email) && !empty($password)){
+        $result = DBH::login($email, $password);
+        echo var_export($result, true);
+        if(Common::get($result, "status", 400) == 200){
+            $_SESSION["user"] = Common::get($result, "data", NULL);
+            die(header("Location: " . Common::url_for("home")));
+        }
+        else{
+            Common::flash(Common::get($result, "message", "Error logging in"));
+            die(header("Location: " . Common::url_for("login")));
+        }
+    }
+    else{
+        Common::flash("Email and password should not be empty", "warning");
+        die(header("Location: " . Common::url_for("login")));
+    }
 }
 ?>
