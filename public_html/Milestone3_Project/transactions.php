@@ -1,7 +1,8 @@
 <?php
 include ("header.php");
 ?>
-    <form method="POST">
+<h2>Account Activity</h2>
+    <form method="POST" style="padding: 20px;">
         <input type="text" name="accountId" placeholder="Account ID">
         <input type="text" name="name" placeholder="Account Name">
         <input type="hidden" name="acctype" value="<?php echo $_GET['acctype'];?>"/>
