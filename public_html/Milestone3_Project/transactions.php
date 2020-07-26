@@ -9,20 +9,20 @@ function do_bank_action($account1, $account2, $amountChange, $acctype){
     $a1total = 0;//TODO get total of account 1
     $a2total = 0;//TODO get total of account 2
     $query = "INSERT INTO `Transactions` (`acc_src_id`, `acc_dest_id`, `amount`, `acctype`, `exp_total`) 
-	VALUES(:p1a1, :p1a2, :p1change, :type, :a1total), 
-			(:p2a1, :p2a2, :p2change, :type, :a2total)";
+	VALUES(:p1a1, :p1a2, :p1change, :acctype, :a1total), 
+			(:p2a1, :p2a2, :p2change, :acctype, :a2total)";
 
     $stmt = $db->prepare($query);
     $stmt->bindValue(":p1a1", $account1);
     $stmt->bindValue(":p1a2", $account2);
     $stmt->bindValue(":p1change", $amountChange);
-    $stmt->bindValue(":type", $type);
+    $stmt->bindValue(":acctype", $acctype);
     $stmt->bindValue(":a1total", $a1total);
     //flip data for other half of transaction
     $stmt->bindValue(":p2a1", $account2);
     $stmt->bindValue(":p2a2", $account1);
     $stmt->bindValue(":p2change", ($amountChange*-1));
-    $stmt->bindValue(":type", $type);
+    $stmt->bindValue(":acctype", $acctype);
     $stmt->bindValue(":a2total", $a2total);
     $result = $stmt->execute();
     echo var_export($result, true);
