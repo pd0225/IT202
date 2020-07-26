@@ -38,16 +38,23 @@ if(isset($_POST["login"])){
                     if(password_verify($password, $rpassword)){
                         echo "<div>Passwords matched, you are technically logged in!</div>";
                         $_SESSION["user"] = array(
-                            "id"=>$result["id"],
+                            "id"=>$result["Id"],
                             "email"=>$result["email"],
                             "first_name"=>$result["first_name"],
                             "last_name"=>$result["last_name"]
                         );
+                        $query=$db->prepare("SELECT acc_num FROM Accounts, Users a where id=User_id and email=:email");
+
+                        $query->execute(array(
+                            ":email" => $email
+                        ));
+                        $res = $query->fetchAll();
+                        $_SESSION["user"]["accounts"]=$res;
                         echo var_export($_SESSION, true);
                         header("Location: home.php");
                     }
                     else{
-                        echo "<div>Invalid password!</div>";
+                        echo "<div>Invalid password</div>";
                     }
                 }
                 else{
