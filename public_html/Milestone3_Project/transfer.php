@@ -12,19 +12,9 @@ $account=$_GET["acc_num"];
         <label for="name">From
             <input type="text" id="name" name="name"/>
         </label>
-            <select id="name" name="name" style="background-color: bisque;">
-                <option value=$name></option>
-                <option value=$name></option>
-                <option value=$name></option>
-            </select>
         </label>
         <label for="name">To
             <input type="text" id="name" name="name"/>
-            <select id="name" name="name" style="background-color: bisque;">
-                <option value=$name></option>
-                <option value=$name></option>
-                <option value=$name></option>
-            </select>
         </label>
             <?php
             foreach($new_arr as $item){

@@ -16,7 +16,6 @@ if(isset($_POST["search"])){
 <?php
 if(isset($search)) {
 
-    require("common.inc.php");
     $query = file_get_contents(__DIR__ . "/queries/search_table_accounts.sql");
     if (isset($query) && !empty($query)) {
         try {
