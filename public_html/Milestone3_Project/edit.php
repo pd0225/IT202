@@ -40,7 +40,7 @@ if(isset($_POST["updated"])){
     $balance = $_POST["Balance"];
     if(!empty($name) && !empty($acc_num)&& !empty($acctype)&& !empty($balance)){
         try{
-            $stmt = $db->prepare("UPDATE Accounts set Name='$name', acctype='$acctype', Balance=$balance where Account_Number=$acc_num");
+            $stmt = $db->prepare("UPDATE Accounts set Name='$name', acctype='$acctype', Balance=$balance where acc_num=$acc_num");
             $result = $stmt->execute();
             var_dump($stmt);
             $e = $stmt->errorInfo();
@@ -62,7 +62,7 @@ if(isset($_POST["updated"])){
         }
     }
     else{
-        echo "Account Name and Account Balance must not be empty.";
+        echo "All information must be filled in.";
     }
 }
 ?>
