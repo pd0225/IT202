@@ -1,6 +1,21 @@
 <?php
 include("header.php");
+?>
+<form method="POST" style="padding: 20px;">
+    <input type="text" name="accountId" placeholder="Account ID">
+    <input type="text" name="name" placeholder="Account Name">
+    <input type="hidden" name="acctype" value="<?php echo $_GET['acctype'];?>"/>
 
+    <!--Based on sample type change the submit button display-->
+    <input type="submit" value="View Account Activity"/>
+</form>
+
+if (Common::is_logged_in()) {
+echo "<h4>User: " . $name . "</h4>";
+echo "<h4>Account Type: " . $acctype . "</h4>";
+echo "<h4>Account Balance: " . $amount . "</h4>";
+}
+<?php
 $email=$_SESSION["user"]["email"];
 $account=$_GET["account"];
 $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
@@ -28,10 +43,8 @@ if($e[0] != "00000"){
 $acctype=$result[0]["acctype"];
 $amount=$result[0]["Balance"];
 
-echo "<h3>Account Profile - ".$account."</h3>";
-echo "<h4>Account Type: ".$acctype."</h4>";
-echo "<h4>Account Balance: ".$amount."</h4>";
 ?>
+
 <input type="date" placeholder="From Date" id="post_at" name="post_at" style="margin-top: 10px "/>
 <input type="date" placeholder="To Date" id="post_at_to_date" name="post_at_to_date" style="margin-left:25px"    />
 
