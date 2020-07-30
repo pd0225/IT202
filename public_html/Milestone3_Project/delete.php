@@ -22,3 +22,4 @@ $stmt->execute(array(
 var_dump($stmt);
 //$result = $stmt->execute();
 ?>
+<?php include 'footer.php';?>

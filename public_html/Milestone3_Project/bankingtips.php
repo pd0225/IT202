@@ -12,3 +12,5 @@
             <li>Change your Internet Banking password at periodical intervals.</li>
             <li>Always check the last log-in date and time in the post login page.</li>
         </ul>
+
+<?php include 'footer.php';?>

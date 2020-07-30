@@ -51,3 +51,4 @@ if (isset($_POST["register"])) {
     }
 }
 ?>
+<?php include 'footer.php';?>

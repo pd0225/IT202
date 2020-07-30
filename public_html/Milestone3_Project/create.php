@@ -148,3 +148,4 @@ if(isset($_POST["created"])) {
 $stmt = $db->prepare("SELECT * FROM Accounts");
 $stmt->execute();
     ?>
+<?php include 'footer.php';?>

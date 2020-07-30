@@ -4,3 +4,4 @@ include("header.php");
 ?>
     <h2>Account Details</h2>
 <?php
+include 'footer.php'; ?>

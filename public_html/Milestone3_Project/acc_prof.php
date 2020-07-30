@@ -93,3 +93,4 @@ $amount=$result[0]["Balance"];
         showRecords(2, 1);
     });
 </script>
+<?php include 'footer.php';?>

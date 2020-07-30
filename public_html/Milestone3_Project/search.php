@@ -49,3 +49,4 @@ require ("common.inc.php");
 <?php else:?>
     <p>This shows when we don't have results</p>
 <?php endif;?>
+<?php include 'footer.php';?>

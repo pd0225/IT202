@@ -34,3 +34,5 @@
         <p><span class="heading">Email - </span>psbbranch.ca@psb.co</p>
     </div>
 </div>
+
+<?php include 'footer.php';?>

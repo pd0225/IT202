@@ -66,3 +66,4 @@ if(isset($_POST["updated"])){
     }
 }
 ?>
+<?php include 'footer.php';?>

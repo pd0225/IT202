@@ -87,3 +87,4 @@ if(isset($_POST["Deposit"])) {
     $stmt = $db->prepare("SELECT * FROM Accounts");
     $stmt->execute();
     ?>
+<?php include 'footer.php';?>

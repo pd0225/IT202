@@ -20,3 +20,4 @@ if (ini_get("session.use_cookies")) {
     ); 
 } 
 ?>
+<?php include 'footer.php';?>
