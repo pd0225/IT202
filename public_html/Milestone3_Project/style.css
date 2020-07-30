@@ -45,4 +45,7 @@ h1 {
     color: darkslategrey;
     margin-left: 540px;
 }
-
+footer {
+    padding-top: 100px;
+    color: darkslategrey;
+}
