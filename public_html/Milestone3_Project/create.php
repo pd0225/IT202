@@ -21,18 +21,13 @@ $new_arr = array_column($accounts,'Account_Number');
     <label for="balance">Balance
         <input type="number" id="balance" name="Balance" required min="5"/>
     </label>
-    <label for="transfer">Transfer from
-        <select name="Transfer" id="Transfer">
-            <option value=""></option>
-            <?php
-            foreach($new_arr as $item){
-                ?>
-                <option value="<?php echo strtolower($item); ?>"><?php echo $item; ?></option>
-                <?php
+    <?php
+    foreach($new_arr as $item){ ?>
+        <option value="<?php echo strtolower($item); ?>"><?php echo $item; ?></option>
+        <?php
             }
-            ?>
+    ?>
         </select>
-    </label>
     <input type="submit" name="created" value="Create Account"/>
 </form>
 <?php
