@@ -1,7 +1,7 @@
 <?php
 include("header.php");
 ?>
-<h2>Account Details</h2>
+<h2>Bank Profile</h2>
 <form method="POST" style="padding: 20px;">
     <input type="text" name="accountId" placeholder="Account ID">
     <input type="text" name="name" placeholder="Account Name">
