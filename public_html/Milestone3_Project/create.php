@@ -24,6 +24,7 @@ $new_arr = array_column($accounts,'Account_Number');
     <input type="submit" name="created" value="Create Account"/>
 </form>
 <?php
+require ("common.inc.php");
 if(isset($_POST["created"])) {
     $name = "";
     $acctype = $_POST["acctype"];
