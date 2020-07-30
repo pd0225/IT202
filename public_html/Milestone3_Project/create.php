@@ -1,5 +1,8 @@
 <?php
 include("header.php");
+$email=$_SESSION["user"]["email"];
+$accounts=$_SESSION["user"]["accounts"];
+$new_arr = array_column($accounts,'Account_Number');
 ?>
     <h2>Create Bank Account</h2>
 <script src="js/script.js"></script>
@@ -19,6 +22,7 @@ include("header.php");
         <input type="number" id="balance" name="Balance" required min="5"/>
     </label>
     <input type="submit" name="created" value="Create Account"/>
+</form>
 <?php
 if(isset($_POST["created"])) {
     $name = "";
@@ -42,7 +46,6 @@ if(isset($_POST["created"])) {
     }
     $amount = $amount - $balance;
     if (!empty($name) && !empty($acctype) && !empty($balance) && $balance >= 5) {
-
         try {
             try {
                 $stmt1 = $db->prepare("SELECT id FROM Users where email = :email LIMIT 1");
@@ -107,8 +110,7 @@ if(isset($_POST["created"])) {
                 ":exp_balance" => $balance
             ));
             $e = $stmt2->errorInfo();
-            if ($e[0] != "00000") {
-            }
+            if ($e[0] != "00000");
             $stmt = $db->prepare("update Accounts set Balance= (SELECT sum(Amount) FROM Transactions WHERE acc_src_id=:acc_num) where acc_num=:acc_num");
             $result = $stmt->execute(array(
                 ":acc_num" => $acc_num
@@ -127,7 +129,6 @@ if(isset($_POST["created"])) {
                 echo "Error inserting record";
             }
         } catch (Exception $e) {
-
             echo $e->getMessage();
         }
     } else {
@@ -135,3 +136,4 @@ if(isset($_POST["created"])) {
         echo "<div>Account name, type and balance must not be empty. Balance must be at least 5 dollars.<div>";
     }
 }
+    ?>
