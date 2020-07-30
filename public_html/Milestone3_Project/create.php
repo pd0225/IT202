@@ -21,6 +21,18 @@ $new_arr = array_column($accounts,'Account_Number');
     <label for="balance">Balance
         <input type="number" id="balance" name="Balance" required min="5"/>
     </label>
+    <label for="transfer">Transfer from
+        <select name="Transfer" id="Transfer">
+            <option value=""></option>
+            <?php
+            foreach($new_arr as $item){
+                ?>
+                <option value="<?php echo strtolower($item); ?>"><?php echo $item; ?></option>
+                <?php
+            }
+            ?>
+        </select>
+    </label>
     <input type="submit" name="created" value="Create Account"/>
 </form>
 <?php
@@ -29,6 +41,7 @@ if(isset($_POST["created"])) {
     $name = "";
     $acctype = $_POST["acctype"];
     $balance = -1;
+    $transfer = $_POST["Transfer"];
     require("config.php");
     $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
     $db = new PDO($connection_string, $dbuser, $dbpass);
@@ -137,4 +150,6 @@ if(isset($_POST["created"])) {
         echo "<div>Account name, type and balance must not be empty. Balance must be at least 5 dollars.<div>";
     }
 }
+$stmt = $db->prepare("SELECT * FROM Accounts");
+$stmt->execute();
     ?>
