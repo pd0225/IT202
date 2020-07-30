@@ -24,7 +24,12 @@ session_start();
         </li>
     </ul>
     <ul>
-        <a href="acc_prof.php">Profile</a>
+        <li>
+        <a href="acc_prof.php">Bank Profile</a>
+        </li>
+        <li>
+            <a href="profile.php">Account Details</a>
+        </li>
     </ul>
     <ul>
         <a href="#" style="color: darkslategrey; font-weight: bold;">Bank Account: </a>
