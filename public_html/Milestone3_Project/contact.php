@@ -1,21 +1,21 @@
+<?php include 'header.php' ?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <h2>Contact Us</h2>
 
     <link rel="stylesheet" href="style.css">
     <style>
         .heading{
             font-weight:bold;
-            color:darkorange;
+            color:black;
         }
     </style>
 
 </head>
-<?php include 'header.php' ?>
+
 <div>
-    <h4 style="text-align:center;color:darkslategrey;"><u>Contact Us</u></h4>
+    <h2 style="text-align:center;color:black;"><u>Contact Us</u></h2>
 
         <h3 style="color:darkslategrey; text-align: center;"><u>India Branch</u></h3>
         <p><span class="heading">Address: </span>PSB, Maharashtra, Mumbai</p>
