@@ -18,44 +18,7 @@ session_start();
         </li>
     </ul>
     <ul>
-        <li>
-        <a href="acc_prof.php">Bank Profile</a>
-        </li>
-        <li>
-            <a href="profile.php">Account Details</a>
-        </li>
-    </ul>
-    <ul>
-        <a href="#" style="color: darkslategrey; font-weight: bold;">Bank Account: </a>
-    </ul>
-    <ul>
-        <li>
-            <a href="transfer.php">Transfer</a>
-        </li>
-        <li>
-            <a href="transactions.php">Transactions</a>
-        </li>
-        <li>
-            <a href="create.php">Create Bank Account</a>
-        </li>
-        <li>
-            <a href="delete.php">Delete Bank Account</a>
-        </li>
-        <li>
-            <a href="edit.php">Update Bank Account</a>
-        </li>
-        <li>
-            <a href="search.php">Search</a>
-        </li>
-        <ul>
-            <li>
-                <a href="deposit.php">Deposit</a>
-            </li>
-            <li>
-                <a href="withdraw.php">Withdraw</a>
-            </li>
-        </ul>
-
+        <a href="bankacc.php">Banking Options</a>
     </ul>
 
 </nav>

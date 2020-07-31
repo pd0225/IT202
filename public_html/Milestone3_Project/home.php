@@ -9,4 +9,7 @@ include("header.php");
 <li>
     <a href="register.php">Register</a>
 </li>
+<li>
+    <a href="search.php">Search for Account</a>
+</li>
 <?php include 'footer.php';?>
