@@ -18,7 +18,9 @@ session_start();
         </li>
     </ul>
     <ul>
+        <li>
         <a href="bankacc.php">Banking Options</a>
+        </li>
     </ul>
 
 </nav>
