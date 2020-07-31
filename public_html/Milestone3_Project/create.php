@@ -31,7 +31,7 @@ $new_arr = array_column($accounts,'Account_Number');
         </select>
     <input type="submit" name="created" value="Create Account"/>
 </form>
-<a href="loan.php">Loan Money</a>;
+<a style="text-align: center" href="loan.php">Loan Money</a>
 <?php
 require ("common.inc.php");
 if(isset($_POST["created"])) {

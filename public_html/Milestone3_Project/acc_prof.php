@@ -2,6 +2,9 @@
 include("header.php");
 require("common.inc.php");
 require("config.php");
+?>
+    <h4>Profile</h4>
+<?php
 $email=$_SESSION["user"]["email"];
 $account=$_GET["account"];
 $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
