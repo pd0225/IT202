@@ -1,10 +1,7 @@
 <?php
 include("header.php");
 require("common.inc.php");
-
-?>
-    <h4>Profile</h4>
-<?php
+require("config.php");
 $email=$_SESSION["user"]["email"];
 $account=$_GET["account"];
 $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
@@ -30,15 +27,16 @@ if($e[0] != "00000"){
     echo "setting eee ".$e."<br>";
 }
 $type=$result[0]["acctype"];
-$amount=$result[0]["Balance"];
+$amount=$result[0]["balance"];
 
-echo "<h3>Details for ".$account."</h3>";
+echo "<h3>Account Details: ".$account."</h3>";
 echo "<h4>Account Type: ".$acctype."</h4>";
 echo "<h4>Balance : $".$amount."</h4>";
 ?>
+    <h2>Profile</h2>
 
-    <input style="padding-left: 20px" type="date" placeholder="From Date" id="post_at" name="post_at"   />
-    <input type="date" placeholder="To Date" id="post_at_to_date" name="post_at_to_date" style="margin-left:20px"    />
+    <input type="date" placeholder="From Date" id="post_at" name="post_at"   />
+    <input type="date" placeholder="To Date" id="post_at_to_date" name="post_at_to_date" style="margin-left:25px"    />
 
     <br>
     <select name="types" id="types">
@@ -61,7 +59,7 @@ echo "<h4>Balance : $".$amount."</h4>";
         </div>
     </div>
     <script type="text/javascript">
-        function showRecords(perPageCount, pageNumber) {
+        function showRecords(pageCount, pagenum) {
             var acc = "<?php echo $account; ?>";
             var post_at = document.getElementById("post_at").value;
             var post_at_to_date = document.getElementById("post_at_to_date").value;
@@ -70,8 +68,16 @@ echo "<h4>Balance : $".$amount."</h4>";
             $.ajax({
                 type: "GET",
                 url: "pgs.php",
-                data: {"pageNumber": pageNumber,"account": acc, "datefrom": post_at, "dateto": post_at_to_date, "type": strUser},
+                data: {"pagenum": pagenum,"account": acc, "datefrom": post_at, "dateto": post_at_to_date, "type": strUser},
                 cache: false,
+                beforeSend: function() {
+                    $('#loader').html('<img src="loader.png" alt="reload" width="20" height="20" style="margin-top:15px;">');
+
+                },
+                success: function(html) {
+                    $("#results").html(html);
+                    $('#loader').html('');
+                }
             });
         }
 

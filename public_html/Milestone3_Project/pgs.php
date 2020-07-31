@@ -2,7 +2,7 @@
 if (! (isset($_GET['pagenum']))) {
     $pagenum = 1;
 } else {
-    $pageum = $_GET['pagenum'];
+    $pagenum = $_GET['pagenum'];
 }
 
 $PageCount = 2;
@@ -29,17 +29,17 @@ $stmt->execute(array(
 $res = $stmt->fetchAll();
 
 $rowCount=$res[0]["num"];
-$pagesCount = ceil($rowCount / $PageCount);
+$pageCount = ceil($rowCount / $pageCount);
 
-$lowerLimit = ($pagenum - 1) * $PageCount;
+$lowerLimit = ($pagenum - 1) * $pageCount;
 
-$stmt = $db->prepare("SELECT * FROM Transactions  where acc_src_id=:acc limit " . ($lowerLimit) . " ,  " . ($PageCount) . " ");
+$stmt = $db->prepare("SELECT * FROM Transactions  where acc_src_id=:acc limit " . ($lowerLimit) . " ,  " . ($pageCount) . " ");
 if (!empty($post_at) && !empty($post_at_to_date)) {
-    $stmt = $db->prepare("SELECT * FROM Transactions where acc_src_id=:acc and Created >= '".$post_at."' and Created<= '".$post_at_to_date."' limit ". ($lowerLimit) . " ,  " . ($PageCount) . " ");
+    $stmt = $db->prepare("SELECT * FROM Transactions where acc_src_id=:acc and Created >= '".$post_at."' and Created<= '".$post_at_to_date."' limit ". ($lowerLimit) . " ,  " . ($pageCount) . " ");
 
 }
 else if(!empty($acctype)){
-    $stmt = $db->prepare("SELECT * FROM Transactions where acc_src_id=:acc and Type= '".$acctype."' limit ". ($lowerLimit) . " ,  " . ($PageCount) . " ");
+    $stmt = $db->prepare("SELECT * FROM Transactions where acc_src_id=:acc and Type= '".$acctype."' limit ". ($lowerLimit) . " ,  " . ($pageCount) . " ");
 
 }
 $stmt->execute(array(
@@ -89,14 +89,14 @@ $results = $stmt->fetchAll();
 
         <td valign="top" align="center">
             <?php
-            for ($i = 1; $i <= $pagesCount; $i ++) {
+            for ($i = 1; $i <= $pageCount; $i ++) {
                 if ($i == $pagenum) {
                     ?> <a href="javascript:void(0);" class="current">
                         <?php echo $i ?>
                     </a> <?php
                 } else {
                     ?> <a href="javascript:void(0);" class="pages"
-                          onclick="showRecords('<?php echo $PageCount;  ?>', '<?php echo $i; ?>');">
+                          onclick="showRecords('<?php echo $pageCount;  ?>', '<?php echo $i; ?>');">
                         <?php echo $i ?>
                     </a> <?php
                 } // endIf
@@ -105,7 +105,7 @@ $results = $stmt->fetchAll();
             ?>
         </td>
         <td align="right" valign="top">Page <?php echo $pagenum; ?>
-            of <?php echo $pagesCount; ?>
+            of <?php echo $pageCount; ?>
         </td>
     </tr>
 </table>
