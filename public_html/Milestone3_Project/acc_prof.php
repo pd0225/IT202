@@ -1,11 +1,12 @@
 <?php
+require("config.php");
 include("header.php");
 require("common.inc.php");
-require("config.php");
-$email=$_SESSION["user"]["email"];
-$account=$_GET["account"];
+
 $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
 $db = new PDO($connection_string, $dbuser, $dbpass);
+$email=$_SESSION["user"]["email"];
+$account=$_GET["account"];
 $stmt = $db->prepare("SELECT Distinct Type as num FROM Transactions where acc_dest_id=:acc");
 $stmt->execute(array(
     ":acc" => $account
@@ -33,7 +34,7 @@ echo "<h3>Account Details: ".$account."</h3>";
 echo "<h4>Account Type: ".$acctype."</h4>";
 echo "<h4>Balance : $".$amount."</h4>";
 ?>
-   
+
 
     <input type="date" placeholder="From Date" id="post_at" name="post_at"   />
     <input type="date" placeholder="To Date" id="post_at_to_date" name="post_at_to_date" style="margin-left:25px"    />
@@ -50,8 +51,7 @@ echo "<h4>Balance : $".$amount."</h4>";
         ?>
     </select>
     <button onclick="showRecords(2,1)">Search</button>
-    <script
-            src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
     <div id="container">
         <div id="inner-container">
             <div id="results"></div>
@@ -70,14 +70,6 @@ echo "<h4>Balance : $".$amount."</h4>";
                 url: "pgs.php",
                 data: {"pagenum": pagenum,"account": acc, "datefrom": post_at, "dateto": post_at_to_date, "type": strUser},
                 cache: false,
-                beforeSend: function() {
-                    $('#loader').html('<img src="loader.png" alt="reload" width="20" height="20" style="margin-top:15px;">');
-
-                },
-                success: function(html) {
-                    $("#results").html(html);
-                    $('#loader').html('');
-                }
             });
         }
 
