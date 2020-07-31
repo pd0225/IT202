@@ -6,7 +6,6 @@ include("header.php");
 $email=$_SESSION["user"]["email"];
 $accounts=$_SESSION["user"]["accounts"];
 $new_arr = array_column($accounts,'acc_num');
-$account=$_GET["acc_num"];
 ?>
     <form method="POST">
         <label for="name">Account
