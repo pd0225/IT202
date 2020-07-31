@@ -14,12 +14,15 @@ session_start();
             <a href="home.php">Home</a>
         </li>
         <li>
-            <a href="logout.php">Logout</a>
+            <a href="acc_prof.php">Profile</a>
+        </li>
+        <li>
+            <a href="bankacc.php">Banking Options</a>
         </li>
     </ul>
     <ul>
         <li>
-        <a href="bankacc.php">Banking Options</a>
+            <a href="logout.php">Logout</a>
         </li>
     </ul>
 
