@@ -21,6 +21,7 @@ $new_arr = array_column($accounts,'Account_Number');
     <label for="balance">Balance
         <input type="number" id="balance" name="Balance" required min="5"/>
     </label>
+    <a href="loan.php">Loan Money</a>;
     <?php
     foreach($new_arr as $item){ ?>
         <option value="<?php echo strtolower($item); ?>"><?php echo $item; ?></option>
@@ -33,7 +34,7 @@ $new_arr = array_column($accounts,'Account_Number');
 <?php
 require ("common.inc.php");
 if(isset($_POST["created"])) {
-    $name = "";
+    $name = $_POST["name"];
     $acctype = $_POST["acctype"];
     $balance = -1;
     $transfer = $_POST["Transfer"];

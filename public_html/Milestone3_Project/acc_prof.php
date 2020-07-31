@@ -34,7 +34,7 @@ echo "<h4>Account Type: ".$acctype."</h4>";
 echo "<h4>Balance : $".$amount."</h4>";
 ?>
 
-    <input type="date" placeholder="From Date" id="post_at" name="post_at"   />
+    <input style="padding-left: 20px" type="date" placeholder="From Date" id="post_at" name="post_at"   />
     <input type="date" placeholder="To Date" id="post_at_to_date" name="post_at_to_date" style="margin-left:20px"    />
 
     <br>
@@ -66,17 +66,9 @@ echo "<h4>Balance : $".$amount."</h4>";
             var strUser = e.options[e.selectedIndex].value;
             $.ajax({
                 type: "GET",
-                url: "pages.php",
+                url: "pgs.php",
                 data: {"pageNumber": pageNumber,"account": acc, "datefrom": post_at, "dateto": post_at_to_date, "type": strUser},
                 cache: false,
-                beforeSend: function() {
-                    $('#loader').html('<img src="loader.png" alt="reload" width="20" height="20" style="margin-top:10px;">');
-
-                },
-                success: function(html) {
-                    $("#results").html(html);
-                    $('#loader').html('');
-                }
             });
         }
 

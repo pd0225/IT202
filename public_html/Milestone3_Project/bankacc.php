@@ -4,10 +4,7 @@ include("header.php");
 <h2>Manage Bank Account</h2>
     <ul>
         <li>
-            <a href="acc_prof.php">Bank Profile</a>
-        </li>
-        <li>
-            <a href="profile.php">Account Details</a>
+            <a href="acc_prof.php">Profile</a>
         </li>
         <li>
             <a href="create.php">Create Bank Account</a>
