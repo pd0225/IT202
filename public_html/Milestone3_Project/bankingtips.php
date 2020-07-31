@@ -1,7 +1,7 @@
 <?php include ("header.php")
 ?>
 
-    <h4 style="text-align:center;color:darkslategrey;"><u>Safe Online Banking Tips</u></h4>
+    <h2 style="text-align:center;color:darkslategrey;">Safe Online Banking Tips</h2>
 
     <div class="contact">
 
