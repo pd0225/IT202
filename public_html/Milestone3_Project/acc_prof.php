@@ -49,7 +49,7 @@ echo "<h4>Balance : $".$amount."</h4>";
             <?php
         }
         ?>
-    
+
     <button onclick="showRecords(2,1)">Search</button>
 
     <div id="container">
