@@ -1,8 +1,9 @@
 <?php
 require("config.php");
-
 include("header.php");
-
+?>
+    <h2>Profile</h2>
+<?php
 $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
 $db = new PDO($connection_string, $dbuser, $dbpass);
 $email=$_SESSION["user"]["email"];
@@ -30,7 +31,7 @@ if($e[0] != "00000"){
 $type=$result[0]["acctype"];
 $amount=$result[0]["balance"];
 
-echo "<h3>Account Details: ".$account."</h3>";
+echo "<h4>Account Details: ".$account."</h4>";
 echo "<h4>Account Type: ".$acctype."</h4>";
 echo "<h4>Balance : $".$amount."</h4>";
 ?>
