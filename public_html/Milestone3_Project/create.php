@@ -19,9 +19,6 @@
     <input type="submit" name="created" value="Create Account"/>
 </form>
 <?php
-if(!isset($_SESSION["user"])){
-    die(header("Location: login.php"));
-}
 if(isset($_POST["created"])) {
     $name = "";
     $balance = -1;
@@ -34,7 +31,7 @@ if(isset($_POST["created"])) {
         }
     }
     if(empty($name) || $balance < 0 ){
-        echo "Account name and balance must not be empty. Balance should be at least 0.";
+        echo "Account name and balance must not be empty. Balance should be at least 5 dollars.";
         die();
     }
     try {
@@ -49,7 +46,7 @@ if(isset($_POST["created"])) {
         $acc_num = str_pad($max,12,"0",STR_PAD_LEFT);
         echo $max;
         echo $acc_num;
-        $query = "INSERT INTO Accounts(account_number, user_id, name) VALUES(:an, :id, :name)";
+        $query = "INSERT INTO Accounts(acc_num, user_id, name) VALUES(:an, :id, :name)";
         echo "<br>$query<br>";
         $stmt = getDB()->prepare($query);
         $stmt->execute(array(":an"=>$acc_num, ":id"=>$_SESSION["user"]["id"], ":name"=>$name));
