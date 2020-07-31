@@ -42,7 +42,6 @@ echo "<h4>Balance : $".$amount."</h4>";
 
     <br>
     <select name="types" id="types">
-        <option value=""></option>
         <?php
         foreach($res as $item){
             ?>
