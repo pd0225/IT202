@@ -1,14 +1,6 @@
 <?php
 include("header.php");
 ?>
-    <h2>Delete Account</h2>
-    <form method="POST">
-        <label for="acc_num">Account Number
-            <input type="number" id="acc_num" name="acc_num" />
-        </label>
-        <input type="submit" name="Bank" value="Delete Account"/>
-    </form>
-
 <?php
 if (isset($_GET["accountId"]) && !empty($_GET["accountId"])){
     if(is_numeric($_GET["accountId"])){
