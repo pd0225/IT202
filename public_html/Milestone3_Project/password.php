@@ -4,15 +4,15 @@ include("header.php");
         <form method="POST" style="padding: 20px">
             <div style="padding: 10px">
                 <label for="email">Email</label><br>
-                <input type="email" id="email" name="email" placeholder="Email" required/>
+                <input type="email" id="email" name="email" placeholder="Email" required autocomplete="off"/>
             </div>
             <div style="padding: 10px">
                 <label for="pass">New Password</label><br>
-                <input type="password" id="pass" name="password" placeholder="Password" required/>
+                <input type="password" id="pass" name="password" placeholder="Password" required autocomplete="off"/>
             </div>
             <div style="padding: 10px">
                 <label for="cpass">Confirm New Password</label><br>
-                <input type="password" id="cpasss" name="cpassword" placeholder="Confirm New Password" required/>
+                <input type="password" id="cpasss" name="cpassword" placeholder="Confirm New Password" required autocomplete="off"/>
             </div>
             <div style="padding: 10px">
                 <input class="submit" type="submit" name="register" value="Change Password"/>
