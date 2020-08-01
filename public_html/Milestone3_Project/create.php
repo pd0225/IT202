@@ -1,7 +1,5 @@
-<?php include("header.php");?>
-<h2>Create Account</h2>
+<script src="script.js"></script>
 
-<script src="js/script.js"></script>
 <form method="POST">
     <label for="name">Account Name
         <input type="text" id="Name" name="Name" />
@@ -18,6 +16,10 @@
     </label>
     <input type="submit" name="created" value="Create Account"/>
 </form>
+
+<?php include("header.php");?>
+<h2>Create Account</h2>
+
 <?php
 if(isset($_POST["created"])){
     $name = $_POST["name"];
