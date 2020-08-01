@@ -28,7 +28,7 @@ $new_arr = array_column($accounts,'acc_num');
             ?>
     <input type="submit" name="Bank" value="Create Account"/>
 </form>
-<a style="text-align: center" href=loan.php>Loan</a>
+<a style="text-align: center" href=loan.php>Create Loan</a>
 <?php
 require("common.inc.php");
 if(isset($_POST["Created"])){
