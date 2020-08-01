@@ -31,7 +31,7 @@ if(isset($_POST["created"])){
             $stmt = $db->prepare("INSERT INTO Accounts (name, balance, acctype) VALUES (:name, :balance, :acctype)");
             $result = $stmt->execute(array(
                 ":name" => $name,
-                ":balance" => $balance
+                ":balance" => $balance,
                 ":acctype" => $acctype
             ));
             $e = $stmt->errorInfo();
@@ -53,7 +53,7 @@ if(isset($_POST["created"])){
         }
     }
     else{
-        echo "Accoun name and balance must not be empty. Balance must be at least 5 dollars.";
+        echo "Account name and balance must not be empty. Balance must be at least 5 dollars.";
     }
 }
 ?>
