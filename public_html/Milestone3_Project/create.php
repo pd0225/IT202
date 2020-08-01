@@ -1,3 +1,4 @@
+<?php include("header.php");?>
 <script src="script.js"></script>
 
 <form method="POST">
@@ -17,7 +18,6 @@
     <input type="submit" name="created" value="Create Account"/>
 </form>
 
-<?php include("header.php");?>
 <h2>Create Account</h2>
 
 <?php
