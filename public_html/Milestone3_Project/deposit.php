@@ -1,12 +1,12 @@
 <?php
 include("header.php");
-?>
-    <h2>Make a Deposit</h2>
-<?php
+
 $email=$_SESSION["user"]["email"];
 $accounts=$_SESSION["user"]["accounts"];
 $new_arr = array_column($accounts,'acc_num');
 ?>
+<h2>Make a Deposit</h2>
+
     <form method="POST">
         <label for="name">Account
         </label>
@@ -17,6 +17,7 @@ $new_arr = array_column($accounts,'acc_num');
         </label>
         <input type="submit" name="Deposit" value="Deposit"/>
     </form>
+
 <?php
 require("common.inc.php");
 if(isset($_POST["Deposit"])) {
