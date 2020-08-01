@@ -9,7 +9,7 @@ $new_arr = array_column($accounts,'acc_num');
         <input type="text" id="Name" name="Name" />
     </label>
     <label for="acctype">Account Type
-        <select id="AccTyp" name="Account_Type" >
+        <select id="acctype" name="acctype" >
             <option value="Checking">Checking</option>
             <option value="Savings">Savings</option>
             <option value="Loan">Loan</option>
@@ -28,7 +28,7 @@ $new_arr = array_column($accounts,'acc_num');
             ?>
     <input type="submit" name="Bank" value="Create Account"/>
 </form>
-<a style="text-align: center" href=loan.php>Create Loan</a>
+
 <?php
 require("common.inc.php");
 if(isset($_POST["Created"])){
