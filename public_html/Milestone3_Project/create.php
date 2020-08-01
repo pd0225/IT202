@@ -4,6 +4,7 @@ $email=$_SESSION["user"]["email"];
 $accounts=$_SESSION["user"]["accounts"];
 $new_arr = array_column($accounts,'acc_num');
 ?>
+<h2>Create Bank Account</h2>
 <form method="POST">
     <label for="name">Account Name
         <input type="text" id="Name" name="Name" />
@@ -12,7 +13,6 @@ $new_arr = array_column($accounts,'acc_num');
         <select id="acctype" name="acctype" >
             <option value="Checking">Checking</option>
             <option value="Savings">Savings</option>
-            <option value="Loan">Loan</option>
         </select>
     </label>
     <label for="balance">Balance

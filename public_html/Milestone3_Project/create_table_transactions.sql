@@ -4,7 +4,7 @@ CREATE TABLE Transactions (
     acc_src_id int not null,
     acc_dest_id int null,
     amount decimal(12,2),
-    acctype varchar(10),
+    `acctype` varchar(10), --deposit, withdraw, transfer
     memo TEXT,
     exp_total decimal (12,2),
     created datetime default current_timestamp,
