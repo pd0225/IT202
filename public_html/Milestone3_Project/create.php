@@ -18,44 +18,47 @@
     <input type="submit" name="created" value="Create Account"/>
 </form>
 
-
-
 <?php
 if(isset($_POST["created"])){
     $name = $_POST["name"];
     $balance = $_POST["balance"];
     $acctype = $_POST ["acctype"];
-    if(!empty($name) && !empty($balance)){
-        require("config.php");
-        $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
-        try{
-            $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Accounts (name, balance, acctype) VALUES (:name, :balance, :acctype)");
-            $result = $stmt->execute(array(
-                ":name" => $name,
-                ":balance" => $balance,
-                ":acctype" => $acctype
-            ));
-            $e = $stmt->errorInfo();
-            if($e[0] != "00000"){
-                echo var_export($e, true);
-            }
-            else{
-                echo var_export($result, true);
-                if ($result){
-                    echo "Successfully created new account: " . $name;
-                }
-                else{
-                    echo "Error creating account";
-                }
-            }
-        }
-        catch (Exception $e){
-            echo $e->getMessage();
+
+    if(isset($_POST["Balance"]) && !empty($_POST["Balance"])){
+        if(is_numeric($_POST["Balance"])){
+            $Balance = (int)$_POST["Balance"];
         }
     }
-    else{
-        echo "Account name and balance must not be empty. Balance must be at least 5 dollars.";
+    if(empty($name) || $Balance < 0 ){
+        echo "Account name and balance must not be empty. Balance should be at least 5 dollars.";
+        die();//terminates the rest of the script
+    }
+    try {
+        require("common.inc.php");
+        $query = file_get_contents(__DIR__ . "/queries/insert_table_accounts.sql");
+        if(isset($query) && !empty($query)) {
+            $stmt = getDB()->prepare($query);
+            $result = $stmt->execute(array(
+                ":name" => $name,
+                ":balance" => $balance
+            ));
+            $e = $stmt->errorInfo();
+            if ($e[0] != "00000") {
+                echo var_export($e, true);
+            } else {
+                if ($result) {
+                    echo "Successfully inserted new account: " . $name;
+                } else {
+                    echo "Error inserting record";
+                }
+            }
+        }
+        else{
+            echo "Failed to find insert_table_accounts.sql file";
+        }
+    }
+    catch (Exception $e){
+        echo $e->getMessage();
     }
 }
 ?>
