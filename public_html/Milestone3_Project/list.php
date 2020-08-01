@@ -28,7 +28,7 @@ if(isset($query) && !empty($query)){
         <?php foreach($results as $row):?>
             <li>
                 <?php echo get($row, "name")?>
-                <?php echo get($row, "AccountBalance");?>
+                <?php echo get($row, "balance");?>
                 <a href="delete.php?accountId=<?php echo get($row, "id"); ?>">Delete</a>
             </li>
         <?php endforeach;?>

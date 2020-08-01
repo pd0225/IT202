@@ -1,21 +1,22 @@
 <?php
 include("header.php");
 ?>
-    <h2>Search</h2>
+<h2>Search</h2>
 <?php
 $search = "";
 if(isset($_POST["search"])){
     $search = $_POST["search"];
 }
 ?>
-    <form method="POST">
-        <input type="text" name="search" placeholder="Search for account"
-               value="<?php echo $search;?>"/>
-        <input type="submit" value="Search"/>
-    </form>
+<form method="POST">
+    <input type="text" name="search" placeholder="Search for account"
+           value="<?php echo $search;?>"/>
+    <input type="submit" value="Search"/>
+</form>
 <?php
 if(isset($search)) {
-require ("common.inc.php");
+
+    require("common.inc.php");
     $query = file_get_contents(__DIR__ . "/queries/search_table_accounts.sql");
     if (isset($query) && !empty($query)) {
         try {
@@ -30,9 +31,9 @@ require ("common.inc.php");
     }
 }
 ?>
-    <!--This part will introduce us to PHP templating,
-    note the structure and the ":" -->
-    <!-- note how we must close each check we're doing as well-->
+<!--This part will introduce us to PHP templating,
+note the structure and the ":" -->
+<!-- note how we must close each check we're doing as well-->
 <?php if(isset($results) && count($results) > 0):?>
     <p>This shows when we have results</p>
     <ul>
